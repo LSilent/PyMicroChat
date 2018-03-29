@@ -1,0 +1,238 @@
+syntax = "proto2";
+
+message mmStr
+{
+	optional int32 	len 		= 1;
+	optional string str 		= 2;
+}
+
+message LoginInfo 
+{
+	optional bytes aesKey 		= 1;	//解密服务器返回封包时使用的aeskey
+	optional int32 	uin 		= 2;
+	optional string guid 		= 3;	//手机guid长度16,这里取前15字节,以'\0'结尾
+	optional int32 clientVer 	= 4;
+	optional string androidVer 	= 5;
+	optional int32 unknown 		= 6;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//登录请求--账号信息
+message ManualAuthAccountRequest 
+{
+	message AesKey 
+	{  
+		required int32  len  = 1;
+		required bytes key = 2;
+	}
+    required AesKey aes = 1;				//仅用于本次登录请求,后续通讯使用的aeskey根据服务器返回的数据做ECDH生成
+
+	message Ecdh 
+	{  
+		required int32 	 nid 	= 1;        //椭圆曲线类型
+
+		message EcdhKey 
+		{  
+			required int32  len  = 1;
+			required bytes key  = 2;       //椭圆曲线client pubkey
+		}
+		required EcdhKey ecdhKey  = 2;
+	}
+	required Ecdh   ecdh  		= 2;
+	required string userName 	= 3;
+	required string password1 	= 4;
+    required string password2 	= 5;
+}
+
+
+//登录请求--设备信息
+message ManualAuthDeviceRequest 
+{
+	optional LoginInfo login 			= 1;
+	message _Tag2 
+	{
+		optional mmStr tag1 = 1;
+		message __Tag2 
+		{
+			optional string tag1 		= 1;
+			optional string tag2 		= 2;
+			optional string tag3 		= 3;
+			optional mmStr  tag4 		= 4;
+		}
+		optional __Tag2 tag2 = 2;
+		optional mmStr 	tag3 = 3;
+		optional mmStr 	tag4 = 4;
+		optional mmStr 	tag5 = 5;
+		optional int32 	tag6 = 6;
+	}
+	optional _Tag2 tag2 				= 2;
+	optional string imei 		  		= 3;
+	optional string softInfoXml       	= 4;
+	optional int32 unknown5       		= 5;
+	optional string clientSeqID      	= 6;
+	optional string clientSeqID_sign 	= 7;
+	optional string loginDeviceName     = 8;
+	optional string deviceInfoXml 		= 9;
+	optional string language       		= 10;
+	optional string timeZone       		= 11;
+	optional int32 unknown13       		= 13;
+	optional int32 unknown14       		= 14;
+	optional string deviceBrand    		= 15;
+	optional string deviceModel    		= 16;
+	optional string osType   	   		= 17;
+	optional string realCountry    		= 18;
+	optional int32 unknown22      		= 22;
+}
+
+//登录结果
+message ManualAuthResponse 
+{
+    message AuthResult 
+	{  
+		required int32  code  		= 1;		    //登录错误码
+		message ErrMsg 
+		{
+			optional string msg 	= 1;		    //错误信息
+		}
+		required ErrMsg err_msg =2;
+	}
+    required AuthResult result = 1;				    //登录结果
+	required int32  unifyFlag  = 2;
+	message AuthParam
+	{
+		required int32  uin    = 1;
+		
+		message Ecdh 
+		{  
+			required int32 	 nid 	= 1;
+			message EcdhKey 
+			{  
+				required int32  len  = 1;
+				optional bytes key  = 2;           //椭圆曲线server pubkey
+			}
+			optional EcdhKey ecdhKey  = 2;
+		}
+		required Ecdh   ecdh  		    = 2;
+		
+		message SessionKey
+		{
+			required int32 	 len 		 = 1;
+			optional bytes  key         = 2;       
+		}
+		required SessionKey session = 3;            //加密的sessionKey 需要使用ECDH握手后的密钥做AES解密得到最终长16字节的aeskey
+		optional bytes SmsTicket = 16;				//需要短信授权时的ticket,用于后续请求验证码以及发送验证码
+
+		optional string bindMailLoginUrl = 20;
+		optional int32 serverTime        = 22;		
+	}
+	required AuthParam authParam = 3;
+	message AccountInfo
+	{
+		optional string wxId                = 1;
+		optional string nickName            = 2;
+		optional int32  tag3                = 3;
+		optional string bindMail            = 4;
+		optional string bindMobile          = 5;
+		optional string Alias               = 6;
+		optional string tag7                = 7;
+		optional int32 status               = 8;
+		optional int32 pluginFlag           = 9;
+		optional int32 registerType         = 10;
+		optional string tag11               = 11;
+		optional int32 safeDevice           = 12;
+		optional string officialNamePinyin  = 13;
+		optional string officialNameZh      = 14;
+		optional string tag15               = 15;
+		optional string fsUrl               = 16;
+	}
+	optional AccountInfo accountInfo = 4;                   //登录成功后返回账号信息
+	
+	optional bytes dnsInfo          = 5;					//dns信息
+}
+
+//新设备第一次登录初始化请求
+message NewInitRequest 
+{
+	optional LoginInfo login 				= 1;
+	optional string wxid 					= 2;
+	optional mmStr tag3						= 3;
+	optional mmStr tag4						= 4;
+	optional string language 				= 5;
+}
+
+//同步key(该数据通常不需要解析,每次同步消息服务器会返回最新的完整的synckey,二进制保存即可;下次同步消息时直接使用)
+message SyncKey
+{
+	optional int32  len 					= 1;				//MsgKey总长度
+	message MsgKey 
+	{
+		optional int32  cnt 			= 1;					//消息类型数量
+		message Key 
+		{
+			optional int32  type = 1;							//消息类型
+			optional int64  key  = 2;							//服务器消息id(通常每个消息加1,但不是从0开始)
+		}
+		repeated Key key 				= 2;					//每种消息类型都有单独的synckey
+	}
+	optional MsgKey msgkey          		=2;					//synckey
+}
+
+//同步key(不需要解析特定类型消息synckey时使用)
+message SyncKeyBytes
+{
+	optional int32  len 					= 1;				//MsgKey总长度
+	optional bytes  key						= 2;				//synckey二进制数据
+}
+
+//新设备第一次登录初始化服务器响应
+message NewInitResponse 
+{
+	optional string tag1 					= 1;
+	optional SyncKeyBytes synckeybytes		= 2;				//synckey二进制数据
+	optional SyncKey synckey				= 3;				//与SyncKeyBytes数据相同
+	optional int32  cntList 				= 6;				//tag7结构体数量
+	message Tag7
+	{
+		optional int32  type 		= 1;						//消息类型:1==>个人信息,2==>最近联系人数据,5==>服务器上未读取的最新消息,其余消息类型暂未知
+		message Data
+		{
+			optional int32 len 		= 1;
+			optional bytes data 	= 2;
+		}
+		optional Data data 			= 2;
+	}
+	repeated Tag7 tag7 			    		= 7;				//需要根据消息类型解析
+}
+
+//服务器返回消息(newinit/newsync)
+message Msg
+{
+	optional int64 serverid 		= 1;
+	message Wxid
+	{
+		optional string id = 1;
+	}
+	optional Wxid from_id 			= 2;							//发送方wxid
+	optional Wxid to_id 			= 3;							//接收方wxid
+	optional int32 type 			= 4;							//消息类型:9999==>系统垃圾消息,10002==>sysmsg(系统垃圾消息),49==>appmsg,1==>文字消息
+	message RawContent
+	{
+		optional string content = 1;
+	}
+	optional RawContent raw 		= 5;							//原始消息内容,需要根据不同消息类型解析
+	optional int32 status 			= 6;
+	optional int32 tag7 			= 7;
+	optional bytes tag8 			= 8;
+	optional int32 createTime 		= 9;							//消息发送时间
+	optional string anticlient 		= 10;
+	optional string xmlContent 		= 11;							//xml格式消息内容
+	optional int64 svrId 			= 12;
+	optional int32 msgKey 			= 13;							//sync key中的id
+}
+
+
+
+
