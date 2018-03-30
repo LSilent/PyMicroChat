@@ -1,5 +1,7 @@
 # PyMicroChat
 
+##声明：本项目仅用于通信方面知识的学习交流，请勿用于非法用途.  
+
 ##Python3.3以上的版本通过venv模块原生支持虚拟环境，可以代替Python之前的virtualenv.低版本请用pip安装。
 
 > git 下载
