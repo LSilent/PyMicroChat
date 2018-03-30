@@ -14,7 +14,7 @@ Windows环境
 >> D:\VSCODE\PyMicroChat>.\Scripts\activate
 
 > 首次执行，配置依赖包，以后根据更新依赖环境运行
->> (PyMicroChat) D:\VSCODE\PyMicroChat>pip freeze > requirements.txt
+>> (PyMicroChat) D:\VSCODE\PyMicroChat>pip install -r requirements.txt
 
 > 修改run.py相应的usrname & passwd，执行
 >> (PyMicroChat) D:\VSCODE\PyMicroChat>python run.py
