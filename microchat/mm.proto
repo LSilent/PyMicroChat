@@ -16,6 +16,163 @@ message LoginInfo
 	optional int32 unknown 		= 6;
 }
 
+//同步key(该数据通常不需要解析,每次同步消息服务器会返回最新的完整的synckey,二进制保存即可;下次同步消息时直接使用)
+message SyncKey
+{
+	optional int32  len 					= 1;				//MsgKey总长度
+	message MsgKey 
+	{
+		optional int32  cnt 			= 1;					//消息类型数量
+		message Key 
+		{
+			optional int32  type = 1;							//消息类型
+			optional int64  key  = 2;							//服务器消息id(通常每个消息加1,但不是从0开始)
+		}
+		repeated Key key 				= 2;					//每种消息类型都有单独的synckey
+	}
+	optional MsgKey msgkey          		=2;					//synckey
+}
+
+//同步消息
+message common_msg
+{
+		optional int32  type 		= 1;						//消息类型:1==>个人信息,2==>好友信息,5==>服务器上未读取的最新消息,其余消息类型暂未知
+		message Data
+		{
+			optional int32 len 		= 1;
+			optional bytes data 	= 2;
+		}
+		optional Data data 			= 2;
+}
+
+//wxid
+message Wxid
+{
+	optional string id = 1;
+}
+
+//服务器返回消息(newinit/newsync)
+message Msg
+{
+	optional int64 serverid 		= 1;
+	optional Wxid from_id 			= 2;							//发送方wxid
+	optional Wxid to_id 			= 3;							//接收方wxid
+	optional int32 type 			= 4;							//消息类型:9999==>系统垃圾消息,10002==>sysmsg(系统垃圾消息),49==>appmsg,1==>文字消息,10000==>系统提示
+	message RawContent
+	{
+		optional string content = 1;
+	}
+	optional RawContent raw 		= 5;							//原始消息内容,需要根据不同消息类型解析
+	optional int32 status 			= 6;
+	optional int32 tag7 			= 7;
+	optional bytes tag8 			= 8;
+	optional int32 createTime 		= 9;							//消息发送时间
+	optional string anticlient 		= 10;
+	optional string xmlContent 		= 11;							//推送内容(xml格式)
+	optional int64 svrId 			= 12;							//每条消息的唯一id
+	optional int32 msgKey 			= 13;							//sync key中的id
+}
+
+//好友详细信息
+message contact_info
+{
+	optional Wxid 	wxid 		= 1;
+	message NickName
+	{
+		optional string name    = 1;
+	}
+	optional NickName nickname 	= 2;
+	message PY_SHORT
+	{
+		optional string name    = 1;
+	}
+	optional PY_SHORT shortPy 	= 3;
+	message QuanPin
+	{
+		optional string name    = 1;
+	}
+	optional QuanPin quanpin 	= 4;
+	optional int32  sex 		= 5;						//性别：0=>未知,1=>男,2=>女
+	optional string tag6    	= 6;
+	optional int32  tag7  		= 7;
+	optional int32  type 		= 8;						//好友状态:11=>拉黑 
+	optional int32  tag9 		= 9;
+	message BeiZhu
+	{
+		optional string name    = 1;
+	}
+	optional BeiZhu remark_name = 10;						//备注名:为空则显示nickname
+	message REAL_PY_SHORT
+	{
+		optional string name    = 1;
+	}
+	optional REAL_PY_SHORT real_shortPy 	= 11;
+	message REAL_QuanPin
+	{
+		optional string name    = 1;
+	}
+	optional REAL_QuanPin real_quanpin 	= 12;
+	optional int32  tag13 		= 13;
+	optional int32  tag14 		= 14;
+	optional string tag16    	= 16;
+	optional int32  bChatRoom 	= 17;							//todo
+	optional int32  tag18 		= 18;
+	optional string sheng    	= 19;
+	optional string shi    		= 20;
+	optional string qianming    = 21;							//签名
+	optional int32  tag22     	= 22;							//todo
+	optional int32  tag23  		= 23;							//todo
+	optional int32  register_body_type = 24;					//8=>个人;24=>公司
+	optional string register_body = 25;							//注册主体:xx公司或个人
+	optional int32  tag26       = 26;
+	optional int32  src 		= 27;							//好友来源:(10000XX为对方添加自己)0=>未知;1=>QQ;3=>微信号;6=>名片;13=>手机通讯录;14=>群聊;15=>手机号;30=>扫一扫  （1000015=>对方手机号;1000030=>对方扫一扫;1000014=>对方群聊......）
+	
+	optional string lastMsgTime = 29;
+	optional string alias 		= 30;							//微信号(未设置则显示wxid)
+	
+	optional string chatroomOwnerWxid = 31;
+	
+	optional int32  tag33 		= 33;
+	optional int32  tag34 		= 34;
+	optional int32  tag35 		= 35;
+	
+	optional bytes tag37 		= 37;							//个人相册封面图片
+	optional string country 	= 38;
+	optional string avatar_big	= 39;
+	optional string avatar_small= 40;
+	
+	optional bytes tag42 		= 42;
+	
+	optional string v1_name		= 45;							//encryptName(等价于wxid,固定不变)		
+	
+	optional bytes tag50 		= 50;
+	
+	optional int32  chatroom_serverVer 	= 53;
+	optional int32  chatroom_max_member = 55;
+	optional int32  tag56 		= 56;
+	message GroupMemberList
+	{
+		optional int32 cnt = 1;
+		message MemberInfo
+		{
+			optional string wxid = 1;
+			optional int32  tag6 = 6;
+			optional int32  tag8 = 8;
+		}
+		repeated MemberInfo member = 2;
+		optional int32   tag3 = 3;
+		optional string  tag4 = 4;
+	}
+	optional GroupMemberList group_member_list 	= 57;
+	optional int32  tag58 		= 58;
+	
+	optional bytes  tag62 		= 62;
+	
+	optional int32  tag64 		= 64;
+	optional int32  tag65 		= 65;
+	optional int32  tag66 		= 66;
+	optional int32  tag67 		= 67;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -158,81 +315,119 @@ message NewInitRequest
 {
 	optional LoginInfo login 				= 1;
 	optional string wxid 					= 2;
-	optional mmStr tag3						= 3;
-	optional mmStr tag4						= 4;
+	optional bytes sync_key_cur				= 3;				//首次初始化时sync_key_cur = ''
+	optional bytes sync_key_max				= 4;				//首次初始化时sync_key_max = ''
 	optional string language 				= 5;
-}
-
-//同步key(该数据通常不需要解析,每次同步消息服务器会返回最新的完整的synckey,二进制保存即可;下次同步消息时直接使用)
-message SyncKey
-{
-	optional int32  len 					= 1;				//MsgKey总长度
-	message MsgKey 
-	{
-		optional int32  cnt 			= 1;					//消息类型数量
-		message Key 
-		{
-			optional int32  type = 1;							//消息类型
-			optional int64  key  = 2;							//服务器消息id(通常每个消息加1,但不是从0开始)
-		}
-		repeated Key key 				= 2;					//每种消息类型都有单独的synckey
-	}
-	optional MsgKey msgkey          		=2;					//synckey
-}
-
-//同步key(不需要解析特定类型消息synckey时使用)
-message SyncKeyBytes
-{
-	optional int32  len 					= 1;				//MsgKey总长度
-	optional bytes  key						= 2;				//synckey二进制数据
 }
 
 //新设备第一次登录初始化服务器响应
 message NewInitResponse 
 {
 	optional string tag1 					= 1;
-	optional SyncKeyBytes synckeybytes		= 2;				//synckey二进制数据
-	optional SyncKey synckey				= 3;				//与SyncKeyBytes数据相同
+	optional bytes sync_key_cur				= 2;				//当前synckey二进制数据
+	optional bytes sync_key_max				= 3;				//最新synckey二进制数据(若与sync_key_cur不相同,则continue_flag返回1,表示需要继续初始化)
+	optional int32 continue_flag			= 4;				//为1时表示仍要继续调用newinit初始化,直到该标志位返回0停止初始化(联系人或未读消息数据太多,无法一次获取完毕)
 	optional int32  cntList 				= 6;				//tag7结构体数量
-	message Tag7
-	{
-		optional int32  type 		= 1;						//消息类型:1==>个人信息,2==>最近联系人数据,5==>服务器上未读取的最新消息,其余消息类型暂未知
-		message Data
-		{
-			optional int32 len 		= 1;
-			optional bytes data 	= 2;
-		}
-		optional Data data 			= 2;
-	}
-	repeated Tag7 tag7 			    		= 7;				//需要根据消息类型解析
+	repeated common_msg tag7 			    = 7;				//需要根据消息类型解析
 }
 
-//服务器返回消息(newinit/newsync)
-message Msg
+//同步消息
+message new_sync_req
 {
-	optional int64 serverid 		= 1;
-	message Wxid
+	message continue_flag
 	{
-		optional string id = 1;
+		optional int32 flag 	= 1;			
 	}
-	optional Wxid from_id 			= 2;							//发送方wxid
-	optional Wxid to_id 			= 3;							//接收方wxid
-	optional int32 type 			= 4;							//消息类型:9999==>系统垃圾消息,10002==>sysmsg(系统垃圾消息),49==>appmsg,1==>文字消息
-	message RawContent
-	{
-		optional string content = 1;
-	}
-	optional RawContent raw 		= 5;							//原始消息内容,需要根据不同消息类型解析
-	optional int32 status 			= 6;
-	optional int32 tag7 			= 7;
-	optional bytes tag8 			= 8;
-	optional int32 createTime 		= 9;							//消息发送时间
-	optional string anticlient 		= 10;
-	optional string xmlContent 		= 11;							//xml格式消息内容
-	optional int64 svrId 			= 12;
-	optional int32 msgKey 			= 13;							//sync key中的id
+	optional continue_flag  flag  		= 1;						//unknown,must be 0
+	optional int32 selector 			= 2;						//unknown,just set 7
+	optional bytes sync_Key     		= 3;						//同步成功后服务器返回的消息id
+	optional int32  scene 				= 4;						//unkown,just set 3
+	optional string device 				= 5;						//'android-22'	
+	optional int32  sync_msg_digest 	= 6;						//unknown,just set 1
 }
 
+//同步消息响应
+message new_sync_resp
+{
+	optional int32 tag1 				= 1;
+	message new_msg
+	{
+		optional int32  cntList 	= 1;							//tag2结构体数量
+		repeated common_msg tag2 	= 2;							//需要根据消息类型解析
+	}
+	optional new_msg msg 				= 2;						//未读消息
+	optional int32  tag3 				= 3;
+	optional bytes sync_key 			= 4;						//服务器返回的sync key
+	optional int32  tag5 				= 5;
+	optional int32  tag6 				= 6;
+	optional int32  utc 				= 7;
+}
 
+//发送消息请求
+message new_send_msg_req
+{
+	optional int32  cnt  				= 1;						//本次发送的消息数量
+	message msg_info 
+	{
+		optional Wxid  to  			= 1;							//to wxid
+		optional bytes content 		= 2;							//消息内容
+		optional int32 type 		= 3;							//消息类型: 文字消息=>1,名片=>42，
+		optional int32 utc 			= 4;
+		optional int32 client_id 	= 5;							//不同消息的utc与client_id必须至少有1个不相同
+	}
+	optional msg_info msg 				= 2;						//这里可以是repeated,允许一次发送多条消息
+}
 
+//发送消息响应
+message new_send_msg_resp
+{
+	optional mmStr tag1					= 1;
+	optional int32 cnt 					= 2;
+	message result
+	{
+		optional int32 code		= 1;								//错误码 0=>发送成功,-44=>对方开启了朋友验证(被删好友),-22=>消息已发出,但被对方拒收了(被拉黑)
+		optional Wxid  to   	= 2;								//to wxid
+		optional int32 type 	= 7;								//消息类型
+		optional int64 svrid 	= 8;								//消息唯一id
+	}
+	optional result res					= 3;						//发送结果
+}
 
+//分享链接请求(也可以分享app链接)
+message new_send_app_msg_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	message appmsg_info
+	{
+		optional string from_wxid		= 1;
+		optional string app_wxid		= 2;
+		optional int32 tag3				= 3;						//unknown just set 0
+		optional string to_wxid			= 4;
+		optional int32 type				= 5;						//app_msg type == 5
+		optional string content			= 6;						//appmsg具体信息
+		optional int32 utc				= 7;
+		optional string client_id		= 8;						//to_wxid+randomin+T+utc
+		optional int32 tag10 			= 10;						//unknown just set 3
+		optional int32 tag11			= 11;						//unknown just set 0
+	}
+	optional appmsg_info info               = 2;					//appmsg消息
+	optional int32 tag4 					= 4;					//unknown just set 0
+	optional int32 tag6 					= 6;					//unknown just set 0
+	optional string tag7					= 7;					//unknown just set ''
+	optional string fromScene				= 8;
+	optional int32 tag9 					= 9;					//unknown just set 0
+	optional int32 tag10 					= 10;					//unknown just set 0
+}
+
+//分享链接响应
+message new_send_app_msg_resp
+{
+	optional mmStr tag1						= 1;					//结果?
+	optional string from_wxid				= 3;
+	optional string to_wxid					= 4;
+	optional int32 sync_key_id				= 5;
+	optional string client_id				= 6;
+	optional int32 utc						= 7;
+	optional int32 type						= 8;
+	optional int64 svrid					= 9;
+}
