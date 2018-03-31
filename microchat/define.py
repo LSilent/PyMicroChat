@@ -28,6 +28,3 @@ WAY                                         = {0:'未知来源',1:'QQ',3:'微信
 
 #系统服务(获取好友列表时过滤掉这些wxid)
 MM_DEFAULT_WXID                             = ("weixin","qqmail", "fmessage", "tmessage", "qmessage", "qqsync", "floatbottle", "lbsapp", "shakeapp", "medianote", "qqfriend", "newsapp", "blogapp", "facebookapp", "masssendapp", "feedsapp", "voipapp", "cardpackage", "voicevoipapp", "voiceinputapp", "officialaccounts", "linkedinplugin", "notifymessage", "appbrandcustomerservicemsg","pc_share","notification_messages","helper_entry","filehelper")
-
-NAME                                        = '13112345678'
-PASSWORD                                    = '123456'

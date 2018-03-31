@@ -8,6 +8,7 @@ import urllib
 import xmltodict
 import zlib
 from . import define
+from . import dns_ip
 from . import business
 from . import Util
 from . import mm_pb2
@@ -17,36 +18,8 @@ from google.protobuf.internal import decoder, encoder
 
 # 获取长短链接Ip
 def GetDns():
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "deflate",
-        "Cache-Control": "no-cache",
-        "Connection": "close",
-        "Content-type": "application/octet-stream",
-        "User-Agent": "MicroMessenger Client"
-    }
-    conn = http.client.HTTPConnection('dns.weixin.qq.com', timeout=10)
-    conn.request("GET", '/cgi-bin/micromsg-bin/newgetdns', "", headers)
-    response = conn.getresponse()
-    data = zlib.decompress(response.read(), -zlib.MAX_WBITS)
-    conn.close()
-
-    parsed = xmltodict.parse(data, encoding='utf-8')
-
-    ipLong = ''
-    ipShort = ''
-
-    # 取长短链接ip,默认使用服务器返回的第一个ip
-    dictDomain = parsed['dns']['domainlist']['domain']
-    for i in range(len(dictDomain)):
-        if dictDomain[i]['@name'] == 'szlong.weixin.qq.com':
-            ipLong = dictDomain[i]['ip'][0]
-        elif dictDomain[i]['@name'] == 'szshort.weixin.qq.com':
-            ipShort = dictDomain[i]['ip'][0]
-
-    logger.info('长链接ip:' + ipLong + ',短链接ip:' + ipShort)
-
-    return {'longip': ipLong, 'shortip': ipShort}
+    (ipShort,ipLong)  = dns_ip.get_ips()
+    return {'longip':ipLong[0], 'shortip':ipShort[0]}
 
 # 登录,参数为账号,密码
 
@@ -66,7 +39,7 @@ def Login(name, password):
 
 
 def new_init():
-    continue_flag = True
+    continue_flag = True  # 需要继续初始化标志位(联系人过多需要多次初始化才能获取完整好友列表)
     cur = max = b''
     while continue_flag:
         # 组包
@@ -140,7 +113,19 @@ def send_app_msg(to_wxid, title, des, link_url, thumb_url=''):
 
 
 def get_contact_list(contact_type=Util.CONTACT_TYPE_FRIEND):
-    return get_contact(contact_type)
+    return Util.get_contact(contact_type)
+
+# 好友请求
+def verify_user(opcode, user_wxid, user_v1_name, user_ticket, user_anti_ticket, send_content):
+    # 组包
+    send_data = business.verify_user_req2buf(
+        opcode, user_wxid, user_v1_name, user_ticket, user_anti_ticket, send_content)
+    # 发包
+    ret_bytes = Util.mmPost('/cgi-bin/micromsg-bin/verifyuser', send_data)
+    logger.debug('verify_user返回数据:' + Util.b2hex(ret_bytes))
+    # 解包
+    return business.verify_user_msg_buf2resp(ret_bytes)
+
 
 # 初始化python模块
 

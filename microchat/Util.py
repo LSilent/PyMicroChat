@@ -8,6 +8,7 @@ import os
 import sys
 import webbrowser
 import ctypes
+import platform
 import subprocess
 import sqlite3
 from . import define
@@ -16,7 +17,7 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5
 from google.protobuf.internal import decoder, encoder
 from ctypes import *
-import platform
+
 
 ################################全局变量################################
 # 日志级别(INFO级别不输出debug信息)

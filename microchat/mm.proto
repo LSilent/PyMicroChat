@@ -6,6 +6,12 @@ message mmStr
 	optional string str 		= 2;
 }
 
+message mmRes
+{
+	optional int32 	code 		= 1;	//错误码
+	optional string message 	= 2;	//错误信息
+}
+
 message LoginInfo 
 {
 	optional bytes aesKey 		= 1;	//解密服务器返回封包时使用的aeskey
@@ -430,4 +436,32 @@ message new_send_app_msg_resp
 	optional int32 utc						= 7;
 	optional int32 type						= 8;
 	optional int64 svrid					= 9;
+}
+
+//好友请求(申请或同意)
+message verify_user_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32 op_code					= 2;					//操作code				
+	optional int32 tag3						= 3;					//todo,just set 1
+	message user_info
+	{
+		optional string 	wxid 		= 1;						
+		optional string  	ticket 		= 2;						//v2_name
+		optional string  	anti_ticket = 3;						//可不填(由getcontact返回,长108位)
+		optional int32  	tag4 		= 4;
+		optional int32  	tag8 		= 8;
+	}
+	optional user_info user					= 4;					//好友详细信息
+	optional string  content 				= 5;					//打招呼内容
+	optional int32  tag6 					= 6;					//just set 1
+	optional string scene 					= 7;					//scene
+	optional mmStr  device_info				= 8;					//登录设备信息
+}
+
+//好友请求响应
+message verify_user_resp
+{
+	optional mmRes res						= 1;					//结果
+	optional string wxid					= 2;					//wxid
 }

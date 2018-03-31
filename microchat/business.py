@@ -9,7 +9,7 @@ import xmltodict
 import zlib
 from . import define
 from . import mm_pb2
-from . import plugin
+from .plugin import plugin
 from . import Util
 from .Util import logger
 from google.protobuf.internal import decoder, encoder
@@ -450,3 +450,40 @@ def send_app_msg_buf2resp(buf):
     res.ParseFromString(UnPack(buf))
     logger.debug('分享链接发送结果:{},svrid:{}'.format(res.tag1.len, res.svrid))
     return (res.tag1.len, res.svrid)
+
+#好友操作请求
+def verify_user_req2buf(opcode,user_wxid,user_v1_name,user_ticket,user_anti_ticket,send_content):
+    #protobuf组包
+    req = mm_pb2.verify_user_req(
+        login = mm_pb2.LoginInfo(
+            aesKey =  Util.sessionKey,
+            uin = Util.uin,
+            guid = define.__GUID__ + '\0',          #guid以\0结尾
+            clientVer = define.__CLIENT_VERSION__,
+            androidVer = define.__ANDROID_VER__,
+            unknown = 0,
+        ),
+        op_code = opcode,
+        tag3 = 1,
+        user = mm_pb2.verify_user_req.user_info(
+            wxid = user_v1_name,
+            ticket = user_ticket,
+            anti_ticket = user_anti_ticket,
+            tag4 = 0,
+            tag8 = 0,
+        ),
+        content = send_content,
+        tag6 = 1,
+        scene = b'\x06',
+    )
+    #组包
+    return pack(req.SerializeToString(),30)
+
+#好友操作结果
+def verify_user_msg_buf2resp(buf): 
+    #解包
+    res = mm_pb2.verify_user_resp()
+    res.ParseFromString(UnPack(buf))
+    logger.info('好友操作返回结果:{},wxid:{}'.format(res.res.code,res.wxid))
+    #返回对方wxid
+    return res.wxid
