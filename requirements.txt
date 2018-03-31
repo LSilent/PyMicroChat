@@ -5,7 +5,9 @@ chardet==3.0.4
 idna==2.6
 protobuf==3.5.2.post1
 pycryptodome==3.5.1
+PyQt5==5.10.1
 requests==2.18.4
+sip==4.19.8
 six==1.11.0
 tornado==5.0.1
 urllib3==1.22

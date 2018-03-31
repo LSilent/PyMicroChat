@@ -184,8 +184,7 @@ def ExitProcess():
 
 
 def OpenIE(url):
-    subprocess.call(
-        '"C:\Program Files\Internet Explorer\iexplore.exe" "{}"'.format(url))
+    subprocess.call('python ./microchat/plugin/browser.py {}'.format(url))
 
 # 使用c接口生成ECDH本地密钥对
 

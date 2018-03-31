@@ -204,9 +204,8 @@ def login_buf2Resp(buf, login_aes_key):
     # 登录异常处理
     if -301 == loginRes.result.code:  # DNS解析失败,请尝试更换idc
         logger.info('登陆结果:\ncode:{}\n请尝试更换DNS重新登陆!'.format(
-            loginRes.result.code))
-    # 需要在IE浏览器中滑动操作解除环境异常/扫码、短信、好友授权(滑动解除异常后需要重新登录一次)
-    elif -106 == loginRes.result.code:
+            loginRes.result.code))                    
+    elif -106 == loginRes.result.code:              # 需要在IE浏览器中滑动操作解除环境异常/扫码、短信、好友授权(滑动解除异常后需要重新登录一次)
         logger.info('登陆结果:\ncode:{}\nError msg:{}\n'.format(loginRes.result.code, loginRes.result.err_msg.msg[loginRes.result.err_msg.msg.find(
             '<Content><![CDATA[')+len('<Content><![CDATA['):loginRes.result.err_msg.msg.find(']]></Content>')]))
         # 打开IE,完成授权
