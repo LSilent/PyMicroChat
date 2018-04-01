@@ -81,8 +81,6 @@ def initLog():
     logger.addHandler(hfile)
 
 # md5
-
-
 def GetMd5(src):
     m1 = hashlib.md5()
     m1.update(src.encode('utf-8'))
@@ -91,30 +89,22 @@ def GetMd5(src):
 
 # padding
 def pad(s): return s + bytes([16 - len(s) % 16] * (16 - len(s) % 16))
-
-
 def unpad(s): return s[0:(len(s) - s[-1])]
 
 # 先压缩后AES-128-CBC加密
-
-
 def compress_and_aes(src, key):
     compressData = zlib.compress(src)
-    aes_obj = AES.new(key, AES.MODE_CBC, key)  # IV与key相同
+    aes_obj = AES.new(key, AES.MODE_CBC, key)                                                   # IV与key相同
     encrypt_buf = aes_obj.encrypt(pad(compressData))
-    return (encrypt_buf, len(compressData))  # 需要返回压缩后protobuf长度,组包时使用
+    return (encrypt_buf, len(compressData))                                                     # 需要返回压缩后protobuf长度,组包时使用
 
 # 不压缩AES-128-CBC加密
-
-
 def aes(src, key):
-    aes_obj = AES.new(key, AES.MODE_CBC, key)  # IV与key相同
+    aes_obj = AES.new(key, AES.MODE_CBC, key)                                                   # IV与key相同
     encrypt_buf = aes_obj.encrypt(pad(src))
     return encrypt_buf
 
 # 先压缩后RSA加密
-
-
 def compress_and_rsa(src):
     compressData = zlib.compress(src)
     rsakey = RSA.construct(
@@ -124,8 +114,6 @@ def compress_and_rsa(src):
     return encrypt_buf
 
 # 不压缩RSA2048加密
-
-
 def rsa(src):
     rsakey = RSA.construct(
         (int(define.__LOGIN_RSA_VER158_KEY_N__, 16), define.__LOGIN_RSA_VER158_KEY_E__))
@@ -134,24 +122,18 @@ def rsa(src):
     return encrypt_buf
 
 # AES-128-CBC解密解压缩
-
-
 def decompress_and_aesDecrypt(src, key):
-    aes_obj = AES.new(key, AES.MODE_CBC, key)  # IV与key相同
+    aes_obj = AES.new(key, AES.MODE_CBC, key)                                                   # IV与key相同
     decrypt_buf = aes_obj.decrypt(src)
     return zlib.decompress(unpad(decrypt_buf))
 
 # AES-128-CBC解密
-
-
 def aesDecrypt(src, key):
-    aes_obj = AES.new(key, AES.MODE_CBC, key)  # IV与key相同
+    aes_obj = AES.new(key, AES.MODE_CBC, key)                                                   # IV与key相同
     decrypt_buf = aes_obj.decrypt(src)
     return unpad(decrypt_buf)
 
 # HTTP短链接发包
-
-
 def mmPost(cgi, data):
     conn = http.client.HTTPConnection(ip['shortip'], timeout=10)
     conn.request("POST", cgi, data, headers)
@@ -160,8 +142,6 @@ def mmPost(cgi, data):
     return response
 
 # HTTP短链接发包
-
-
 def post(host, api, data, head=''):
     conn = http.client.HTTPConnection(host, timeout=2)
     if head:
@@ -173,21 +153,16 @@ def post(host, api, data, head=''):
     return response
 
 # 退出程序
-
-
 def ExitProcess():
     logger.info('===========bye===========')
     os.system("pause")
     sys.exit()
 
 # 使用IE浏览器访问网页(阻塞)
-
-
 def OpenIE(url):
     subprocess.call('python ./microchat/plugin/browser.py {}'.format(url))
 
 # 使用c接口生成ECDH本地密钥对
-
 def GenEcdhKey():
     global EcdhPriKey, EcdhPubKey
     # 载入c模块
@@ -197,10 +172,10 @@ def GenEcdhKey():
     else:
         lib = loader("../microchat/dll/ecdh_x32.dll")
     # 申请内存
-    priKey = bytes(bytearray(2048))  # 存放本地DH私钥
-    pubKey = bytes(bytearray(2048))  # 存放本地DH公钥
-    lenPri = c_int(0)  # 存放本地DH私钥长度
-    lenPub = c_int(0)  # 存放本地DH公钥长度
+    priKey = bytes(bytearray(2048))                                                         # 存放本地DH私钥
+    pubKey = bytes(bytearray(2048))                                                         # 存放本地DH公钥
+    lenPri = c_int(0)                                                                       # 存放本地DH私钥长度
+    lenPub = c_int(0)                                                                       # 存放本地DH公钥长度
     # 转成c指针传参
     pri = c_char_p(priKey)
     pub = c_char_p(pubKey)
@@ -217,8 +192,6 @@ def GenEcdhKey():
     return bRet
 
 # 密钥协商
-
-
 def DoEcdh(serverEcdhPubKey):
     EcdhShareKey = b''
     # 载入c模块
@@ -228,8 +201,8 @@ def DoEcdh(serverEcdhPubKey):
     else:
         lib = loader("../microchat/dll/ecdh_x32.dll")
     # 申请内存
-    shareKey = bytes(bytearray(2048))  # 存放密钥协商结果
-    lenShareKey = c_int(0)  # 存放共享密钥长度
+    shareKey = bytes(bytearray(2048))                                                       # 存放密钥协商结果
+    lenShareKey = c_int(0)                                                                  # 存放共享密钥长度
     # 转成c指针传参
     pShareKey = c_char_p(shareKey)
     pLenShareKey = pointer(lenShareKey)
@@ -238,8 +211,7 @@ def DoEcdh(serverEcdhPubKey):
     # secp224r1 ECC算法
     nid = 713
     # c函数原型:bool DoEcdh(int nid, unsigned char * szServerPubKey, int nLenServerPub, unsigned char * szLocalPriKey, int nLenLocalPri, unsigned char * szShareKey, int *pLenShareKey);
-    bRet = lib.DoEcdh(nid, pub, len(serverEcdhPubKey), pri,
-                      len(EcdhPriKey), pShareKey, pLenShareKey)
+    bRet = lib.DoEcdh(nid, pub, len(serverEcdhPubKey), pri,len(EcdhPriKey), pShareKey, pLenShareKey)
     if bRet:
         # 从c指针取结果
         EcdhShareKey = shareKey[:lenShareKey.value]
@@ -250,8 +222,6 @@ def DoEcdh(serverEcdhPubKey):
 def b2hex(s): return ''.join(["%02X " % x for x in s]).strip()
 
 # sqlite3数据库初始化
-
-
 def init_db():
     global conn
     # 建库
@@ -266,8 +236,6 @@ def init_db():
     return
 
 # 获取sync key
-
-
 def get_sync_key():
     cur = conn.cursor()
     cur.execute('select * from synckey')
@@ -277,8 +245,6 @@ def get_sync_key():
     return b''
 
 # 刷新sync key
-
-
 def set_sync_key(key):
     cur = conn.cursor()
     cur.execute('delete from synckey')
@@ -287,8 +253,6 @@ def set_sync_key(key):
     return
 
 # 保存消息
-
-
 def insert_msg_to_db(svrid, utc, from_wxid, to_wxid, type, content):
     cur = conn.cursor()
     try:
@@ -300,8 +264,6 @@ def insert_msg_to_db(svrid, utc, from_wxid, to_wxid, type, content):
     return
 
 # 保存/刷新好友消息
-
-
 def insert_contact_info_to_db(wxid, nick_name, remark_name, alias, avatar_big, v1_name, type, sex, country, sheng, shi, qianming, register_body, src, chatroom_owner, chatroom_serverVer, chatroom_max_member, chatroom_member_cnt):
     cur = conn.cursor()
     try:
@@ -316,24 +278,17 @@ def insert_contact_info_to_db(wxid, nick_name, remark_name, alias, avatar_big, v
     return
 
 # utc转本地时间
-
-
 def utc_to_local_time(utc):
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(utc))
 
 # 获取本地时间
-
-
 def get_utc():
     return int(time.time())
-
 
 # str转bytes
 def str2bytes(s): return bytes(s, encoding="utf8")
 
 # 获取添加好友方式
-
-
 def get_way(src):
     if src in define.WAY.keys() or (src - 1000000) in define.WAY.keys():
         if src > 1000000:
@@ -343,8 +298,6 @@ def get_way(src):
     return define.WAY[0]
 
 # 获取好友类型:
-
-
 def get_frient_type(wxid):
     cur = conn.cursor()
     cur.execute("select type from contact where wxid = '{}'".format(wxid))
@@ -355,39 +308,45 @@ def get_frient_type(wxid):
         return 0
 
 # 好友是否已删除
-
-
 def is_deleted(type):
     # type的最后一bit是0表示已被删除
     return 0 == (type & 1)
 
 # 好友是否在黑名单中
-
-
 def is_in_blacklist(type):
     return (type & (1 << 3))
 
 # 获取好友列表wxid,昵称,备注,alias,v1_name,头像
-
-
 def get_contact(contact_type):
     cur = conn.cursor()
     rows = []
-    if contact_type & CONTACT_TYPE_FRIEND:  # 返回好友列表
+    if contact_type & CONTACT_TYPE_FRIEND:                                                  # 返回好友列表
         cur.execute("select wxid,nick_name,remark_name,alias,v1_name,avatar_big from contact where wxid not like '%%@chatroom' and wxid not like 'gh_%%' and (type & 8) = 0")
         rows = rows + cur.fetchall()
-    if contact_type & CONTACT_TYPE_CHATROOM:  # 返回群聊列表
-        cur.execute(
-            "select wxid,nick_name,remark_name,alias,v1_name,avatar_big from contact where wxid like '%%@chatroom'")
+    if contact_type & CONTACT_TYPE_CHATROOM:                                                # 返回群聊列表
+        cur.execute("select wxid,nick_name,remark_name,alias,v1_name,avatar_big from contact where wxid like '%%@chatroom'")
         rows = rows + cur.fetchall()
-    if contact_type & CONTACT_TYPE_OFFICAL:  # 返回公众号列表
-        cur.execute(
-            "select wxid,nick_name,remark_name,alias,v1_name,avatar_big from contact where wxid like 'gh_%%'")
+    if contact_type & CONTACT_TYPE_OFFICAL:                                                 # 返回公众号列表
+        cur.execute("select wxid,nick_name,remark_name,alias,v1_name,avatar_big from contact where wxid like 'gh_%%'")
         rows = rows + cur.fetchall()
-    if contact_type & CONTACT_TYPE_BLACKLIST:  # 返回黑名单列表
+    if contact_type & CONTACT_TYPE_BLACKLIST:                                               # 返回黑名单列表
         cur.execute("select wxid,nick_name,remark_name,alias,v1_name,avatar_big from contact where wxid not like '%%@chatroom' and wxid not like 'gh_%%' and (type & 8)")
         rows = rows + cur.fetchall()
-    if contact_type & CONTACT_TYPE_DELETED:  # 返回已删除好友列表
+    if contact_type & CONTACT_TYPE_DELETED:                                                 # 返回已删除好友列表
         cur.execute("select wxid,nick_name,remark_name,alias,v1_name,avatar_big from contact where wxid not like '%%@chatroom' and wxid not like 'gh_%%' and (type & 1) = 0")
         rows = rows + cur.fetchall()
     return rows
+
+# 截取字符串
+def find_str(src,start,end):
+    try:
+        if src.find(start)> -1:
+            start_index = src.find(start) + len(start)
+            if end and src.find(start)> -1:
+                end_index = src.find(end,start_index)
+                return src[start_index:end_index]
+            else: 
+                return src[start_index:]
+    except:
+        pass
+    return ''

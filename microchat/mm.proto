@@ -465,3 +465,57 @@ message verify_user_resp
 	optional mmRes res						= 1;					//结果
 	optional string wxid					= 2;					//wxid
 }
+
+//收红包请求1:获取timingIdentifier
+message receive_wxhb_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32     cmd                  = 2;
+	optional int32	   tag3					= 3;
+	optional mmStr	   info					= 4;					//红包信息(nativeUrl、id等)
+}
+
+//收红包请求1响应
+message receive_wxhb_resp
+{
+	message TAG1
+	{
+		optional int32 tag1 = 1;
+		message TAG1
+		{
+			optional string tag1 = 1;
+		}
+	}
+	optional TAG1 tag1 						= 1;					//没啥用
+	optional mmStr 	   hb_info				= 2;					//红包内容,需要取出timingIdentifier字段
+	optional int32     cmd                  = 5;
+	optional int32	   ret_code				= 6;					//错误码
+	optional string    ret_msg				= 7;					//错误信息
+}
+
+//收红包请求2:拆红包
+message open_wxhb_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32     cmd                  = 2;
+	optional int32	   tag3					= 3;
+	optional mmStr	   info					= 4;					//红包信息(必须填写timingIdentifier字段)
+}
+
+//收红包请求2响应
+message open_wxhb_resp
+{
+	message TAG1
+	{
+		optional int32 tag1 = 1;
+		message TAG1
+		{
+			optional string tag1 = 1;
+		}
+	}
+	optional TAG1 tag1 						= 1;					//没啥用
+	optional mmStr 	   res					= 2;					//红包领取结果
+	optional int32     cmd                  = 5;
+	optional int32	   ret_code				= 6;					//错误码 416:需要实名认证
+	optional string    ret_msg				= 7;					//错误信息
+}

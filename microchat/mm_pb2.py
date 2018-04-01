@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='mm.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x08mm.proto\"!\n\x05mmStr\x12\x0b\n\x03len\x18\x01 \x01(\x05\x12\x0b\n\x03str\x18\x02 \x01(\t\"&\n\x05mmRes\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"n\n\tLoginInfo\x12\x0e\n\x06\x61\x65sKey\x18\x01 \x01(\x0c\x12\x0b\n\x03uin\x18\x02 \x01(\x05\x12\x0c\n\x04guid\x18\x03 \x01(\t\x12\x11\n\tclientVer\x18\x04 \x01(\x05\x12\x12\n\nandroidVer\x18\x05 \x01(\t\x12\x0f\n\x07unknown\x18\x06 \x01(\x05\"\x92\x01\n\x07SyncKey\x12\x0b\n\x03len\x18\x01 \x01(\x05\x12\x1f\n\x06msgkey\x18\x02 \x01(\x0b\x32\x0f.SyncKey.MsgKey\x1aY\n\x06MsgKey\x12\x0b\n\x03\x63nt\x18\x01 \x01(\x05\x12 \n\x03key\x18\x02 \x03(\x0b\x32\x13.SyncKey.MsgKey.Key\x1a \n\x03Key\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x0b\n\x03key\x18\x02 \x01(\x03\"]\n\ncommon_msg\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x1e\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x10.common_msg.Data\x1a!\n\x04\x44\x61ta\x12\x0b\n\x03len\x18\x01 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\x12\n\x04Wxid\x12\n\n\x02id\x18\x01 \x01(\t\"\x97\x02\n\x03Msg\x12\x10\n\x08serverid\x18\x01 \x01(\x03\x12\x16\n\x07\x66rom_id\x18\x02 \x01(\x0b\x32\x05.Wxid\x12\x14\n\x05to_id\x18\x03 \x01(\x0b\x32\x05.Wxid\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x1c\n\x03raw\x18\x05 \x01(\x0b\x32\x0f.Msg.RawContent\x12\x0e\n\x06status\x18\x06 \x01(\x05\x12\x0c\n\x04tag7\x18\x07 \x01(\x05\x12\x0c\n\x04tag8\x18\x08 \x01(\x0c\x12\x12\n\ncreateTime\x18\t \x01(\x05\x12\x12\n\nanticlient\x18\n \x01(\t\x12\x12\n\nxmlContent\x18\x0b \x01(\t\x12\r\n\x05svrId\x18\x0c \x01(\x03\x12\x0e\n\x06msgKey\x18\r \x01(\x05\x1a\x1d\n\nRawContent\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\"\xef\n\n\x0c\x63ontact_info\x12\x13\n\x04wxid\x18\x01 \x01(\x0b\x32\x05.Wxid\x12(\n\x08nickname\x18\x02 \x01(\x0b\x32\x16.contact_info.NickName\x12\'\n\x07shortPy\x18\x03 \x01(\x0b\x32\x16.contact_info.PY_SHORT\x12&\n\x07quanpin\x18\x04 \x01(\x0b\x32\x15.contact_info.QuanPin\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x0c\n\x04tag6\x18\x06 \x01(\t\x12\x0c\n\x04tag7\x18\x07 \x01(\x05\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12\x0c\n\x04tag9\x18\t \x01(\x05\x12)\n\x0bremark_name\x18\n \x01(\x0b\x32\x14.contact_info.BeiZhu\x12\x31\n\x0creal_shortPy\x18\x0b \x01(\x0b\x32\x1b.contact_info.REAL_PY_SHORT\x12\x30\n\x0creal_quanpin\x18\x0c \x01(\x0b\x32\x1a.contact_info.REAL_QuanPin\x12\r\n\x05tag13\x18\r \x01(\x05\x12\r\n\x05tag14\x18\x0e \x01(\x05\x12\r\n\x05tag16\x18\x10 \x01(\t\x12\x11\n\tbChatRoom\x18\x11 \x01(\x05\x12\r\n\x05tag18\x18\x12 \x01(\x05\x12\r\n\x05sheng\x18\x13 \x01(\t\x12\x0b\n\x03shi\x18\x14 \x01(\t\x12\x10\n\x08qianming\x18\x15 \x01(\t\x12\r\n\x05tag22\x18\x16 \x01(\x05\x12\r\n\x05tag23\x18\x17 \x01(\x05\x12\x1a\n\x12register_body_type\x18\x18 \x01(\x05\x12\x15\n\rregister_body\x18\x19 \x01(\t\x12\r\n\x05tag26\x18\x1a \x01(\x05\x12\x0b\n\x03src\x18\x1b \x01(\x05\x12\x13\n\x0blastMsgTime\x18\x1d \x01(\t\x12\r\n\x05\x61lias\x18\x1e \x01(\t\x12\x19\n\x11\x63hatroomOwnerWxid\x18\x1f \x01(\t\x12\r\n\x05tag33\x18! \x01(\x05\x12\r\n\x05tag34\x18\" \x01(\x05\x12\r\n\x05tag35\x18# \x01(\x05\x12\r\n\x05tag37\x18% \x01(\x0c\x12\x0f\n\x07\x63ountry\x18& \x01(\t\x12\x12\n\navatar_big\x18\' \x01(\t\x12\x14\n\x0c\x61vatar_small\x18( \x01(\t\x12\r\n\x05tag42\x18* \x01(\x0c\x12\x0f\n\x07v1_name\x18- \x01(\t\x12\r\n\x05tag50\x18\x32 \x01(\x0c\x12\x1a\n\x12\x63hatroom_serverVer\x18\x35 \x01(\x05\x12\x1b\n\x13\x63hatroom_max_member\x18\x37 \x01(\x05\x12\r\n\x05tag56\x18\x38 \x01(\x05\x12\x38\n\x11group_member_list\x18\x39 \x01(\x0b\x32\x1d.contact_info.GroupMemberList\x12\r\n\x05tag58\x18: \x01(\x05\x12\r\n\x05tag62\x18> \x01(\x0c\x12\r\n\x05tag64\x18@ \x01(\x05\x12\r\n\x05tag65\x18\x41 \x01(\x05\x12\r\n\x05tag66\x18\x42 \x01(\x05\x12\r\n\x05tag67\x18\x43 \x01(\x05\x1a\x18\n\x08NickName\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x18\n\x08PY_SHORT\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x17\n\x07QuanPin\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x16\n\x06\x42\x65iZhu\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x1d\n\rREAL_PY_SHORT\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x1c\n\x0cREAL_QuanPin\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\xac\x01\n\x0fGroupMemberList\x12\x0b\n\x03\x63nt\x18\x01 \x01(\x05\x12\x38\n\x06member\x18\x02 \x03(\x0b\x32(.contact_info.GroupMemberList.MemberInfo\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x0c\n\x04tag4\x18\x04 \x01(\t\x1a\x36\n\nMemberInfo\x12\x0c\n\x04wxid\x18\x01 \x01(\t\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\x0c\n\x04tag8\x18\x08 \x01(\x05\"\xc6\x02\n\x18ManualAuthAccountRequest\x12-\n\x03\x61\x65s\x18\x01 \x02(\x0b\x32 .ManualAuthAccountRequest.AesKey\x12,\n\x04\x65\x63\x64h\x18\x02 \x02(\x0b\x32\x1e.ManualAuthAccountRequest.Ecdh\x12\x10\n\x08userName\x18\x03 \x02(\t\x12\x11\n\tpassword1\x18\x04 \x02(\t\x12\x11\n\tpassword2\x18\x05 \x02(\t\x1a\"\n\x06\x41\x65sKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x02(\x0c\x1aq\n\x04\x45\x63\x64h\x12\x0b\n\x03nid\x18\x01 \x02(\x05\x12\x37\n\x07\x65\x63\x64hKey\x18\x02 \x02(\x0b\x32&.ManualAuthAccountRequest.Ecdh.EcdhKey\x1a#\n\x07\x45\x63\x64hKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x02(\x0c\"\x91\x05\n\x17ManualAuthDeviceRequest\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12,\n\x04tag2\x18\x02 \x01(\x0b\x32\x1e.ManualAuthDeviceRequest._Tag2\x12\x0c\n\x04imei\x18\x03 \x01(\t\x12\x13\n\x0bsoftInfoXml\x18\x04 \x01(\t\x12\x10\n\x08unknown5\x18\x05 \x01(\x05\x12\x13\n\x0b\x63lientSeqID\x18\x06 \x01(\t\x12\x18\n\x10\x63lientSeqID_sign\x18\x07 \x01(\t\x12\x17\n\x0floginDeviceName\x18\x08 \x01(\t\x12\x15\n\rdeviceInfoXml\x18\t \x01(\t\x12\x10\n\x08language\x18\n \x01(\t\x12\x10\n\x08timeZone\x18\x0b \x01(\t\x12\x11\n\tunknown13\x18\r \x01(\x05\x12\x11\n\tunknown14\x18\x0e \x01(\x05\x12\x13\n\x0b\x64\x65viceBrand\x18\x0f \x01(\t\x12\x13\n\x0b\x64\x65viceModel\x18\x10 \x01(\t\x12\x0e\n\x06osType\x18\x11 \x01(\t\x12\x13\n\x0brealCountry\x18\x12 \x01(\t\x12\x11\n\tunknown22\x18\x16 \x01(\x05\x1a\xec\x01\n\x05_Tag2\x12\x14\n\x04tag1\x18\x01 \x01(\x0b\x32\x06.mmStr\x12\x33\n\x04tag2\x18\x02 \x01(\x0b\x32%.ManualAuthDeviceRequest._Tag2.__Tag2\x12\x14\n\x04tag3\x18\x03 \x01(\x0b\x32\x06.mmStr\x12\x14\n\x04tag4\x18\x04 \x01(\x0b\x32\x06.mmStr\x12\x14\n\x04tag5\x18\x05 \x01(\x0b\x32\x06.mmStr\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x1aH\n\x06__Tag2\x12\x0c\n\x04tag1\x18\x01 \x01(\t\x12\x0c\n\x04tag2\x18\x02 \x01(\t\x12\x0c\n\x04tag3\x18\x03 \x01(\t\x12\x14\n\x04tag4\x18\x04 \x01(\x0b\x32\x06.mmStr\"\xd3\x07\n\x12ManualAuthResponse\x12.\n\x06result\x18\x01 \x02(\x0b\x32\x1e.ManualAuthResponse.AuthResult\x12\x11\n\tunifyFlag\x18\x02 \x02(\x05\x12\x30\n\tauthParam\x18\x03 \x02(\x0b\x32\x1d.ManualAuthResponse.AuthParam\x12\x34\n\x0b\x61\x63\x63ountInfo\x18\x04 \x01(\x0b\x32\x1f.ManualAuthResponse.AccountInfo\x12\x0f\n\x07\x64nsInfo\x18\x05 \x01(\x0c\x1ai\n\nAuthResult\x12\x0c\n\x04\x63ode\x18\x01 \x02(\x05\x12\x36\n\x07\x65rr_msg\x18\x02 \x02(\x0b\x32%.ManualAuthResponse.AuthResult.ErrMsg\x1a\x15\n\x06\x45rrMsg\x12\x0b\n\x03msg\x18\x01 \x01(\t\x1a\xe5\x02\n\tAuthParam\x12\x0b\n\x03uin\x18\x01 \x02(\x05\x12\x30\n\x04\x65\x63\x64h\x18\x02 \x02(\x0b\x32\".ManualAuthResponse.AuthParam.Ecdh\x12\x39\n\x07session\x18\x03 \x02(\x0b\x32(.ManualAuthResponse.AuthParam.SessionKey\x12\x11\n\tSmsTicket\x18\x10 \x01(\x0c\x12\x18\n\x10\x62indMailLoginUrl\x18\x14 \x01(\t\x12\x12\n\nserverTime\x18\x16 \x01(\x05\x1au\n\x04\x45\x63\x64h\x12\x0b\n\x03nid\x18\x01 \x02(\x05\x12;\n\x07\x65\x63\x64hKey\x18\x02 \x01(\x0b\x32*.ManualAuthResponse.AuthParam.Ecdh.EcdhKey\x1a#\n\x07\x45\x63\x64hKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x01(\x0c\x1a&\n\nSessionKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x01(\x0c\x1a\xad\x02\n\x0b\x41\x63\x63ountInfo\x12\x0c\n\x04wxId\x18\x01 \x01(\t\x12\x10\n\x08nickName\x18\x02 \x01(\t\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x10\n\x08\x62indMail\x18\x04 \x01(\t\x12\x12\n\nbindMobile\x18\x05 \x01(\t\x12\r\n\x05\x41lias\x18\x06 \x01(\t\x12\x0c\n\x04tag7\x18\x07 \x01(\t\x12\x0e\n\x06status\x18\x08 \x01(\x05\x12\x12\n\npluginFlag\x18\t \x01(\x05\x12\x14\n\x0cregisterType\x18\n \x01(\x05\x12\r\n\x05tag11\x18\x0b \x01(\t\x12\x12\n\nsafeDevice\x18\x0c \x01(\x05\x12\x1a\n\x12officialNamePinyin\x18\r \x01(\t\x12\x16\n\x0eofficialNameZh\x18\x0e \x01(\t\x12\r\n\x05tag15\x18\x0f \x01(\t\x12\r\n\x05\x66sUrl\x18\x10 \x01(\t\"w\n\x0eNewInitRequest\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12\x0c\n\x04wxid\x18\x02 \x01(\t\x12\x14\n\x0csync_key_cur\x18\x03 \x01(\x0c\x12\x14\n\x0csync_key_max\x18\x04 \x01(\x0c\x12\x10\n\x08language\x18\x05 \x01(\t\"\x8e\x01\n\x0fNewInitResponse\x12\x0c\n\x04tag1\x18\x01 \x01(\t\x12\x14\n\x0csync_key_cur\x18\x02 \x01(\x0c\x12\x14\n\x0csync_key_max\x18\x03 \x01(\x0c\x12\x15\n\rcontinue_flag\x18\x04 \x01(\x05\x12\x0f\n\x07\x63ntList\x18\x06 \x01(\x05\x12\x19\n\x04tag7\x18\x07 \x03(\x0b\x32\x0b.common_msg\"\xb4\x01\n\x0cnew_sync_req\x12)\n\x04\x66lag\x18\x01 \x01(\x0b\x32\x1b.new_sync_req.continue_flag\x12\x10\n\x08selector\x18\x02 \x01(\x05\x12\x10\n\x08sync_Key\x18\x03 \x01(\x0c\x12\r\n\x05scene\x18\x04 \x01(\x05\x12\x0e\n\x06\x64\x65vice\x18\x05 \x01(\t\x12\x17\n\x0fsync_msg_digest\x18\x06 \x01(\x05\x1a\x1d\n\rcontinue_flag\x12\x0c\n\x04\x66lag\x18\x01 \x01(\x05\"\xc2\x01\n\rnew_sync_resp\x12\x0c\n\x04tag1\x18\x01 \x01(\x05\x12#\n\x03msg\x18\x02 \x01(\x0b\x32\x16.new_sync_resp.new_msg\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x10\n\x08sync_key\x18\x04 \x01(\x0c\x12\x0c\n\x04tag5\x18\x05 \x01(\x05\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\x0b\n\x03utc\x18\x07 \x01(\x05\x1a\x35\n\x07new_msg\x12\x0f\n\x07\x63ntList\x18\x01 \x01(\x05\x12\x19\n\x04tag2\x18\x02 \x03(\x0b\x32\x0b.common_msg\"\xa6\x01\n\x10new_send_msg_req\x12\x0b\n\x03\x63nt\x18\x01 \x01(\x05\x12\'\n\x03msg\x18\x02 \x01(\x0b\x32\x1a.new_send_msg_req.msg_info\x1a\\\n\x08msg_info\x12\x11\n\x02to\x18\x01 \x01(\x0b\x32\x05.Wxid\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x12\x0c\n\x04type\x18\x03 \x01(\x05\x12\x0b\n\x03utc\x18\x04 \x01(\x05\x12\x11\n\tclient_id\x18\x05 \x01(\x05\"\xa6\x01\n\x11new_send_msg_resp\x12\x14\n\x04tag1\x18\x01 \x01(\x0b\x32\x06.mmStr\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x05\x12&\n\x03res\x18\x03 \x01(\x0b\x32\x19.new_send_msg_resp.result\x1a\x46\n\x06result\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x11\n\x02to\x18\x02 \x01(\x0b\x32\x05.Wxid\x12\x0c\n\x04type\x18\x07 \x01(\x05\x12\r\n\x05svrid\x18\x08 \x01(\x03\"\xed\x02\n\x14new_send_app_msg_req\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12/\n\x04info\x18\x02 \x01(\x0b\x32!.new_send_app_msg_req.appmsg_info\x12\x0c\n\x04tag4\x18\x04 \x01(\x05\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\x0c\n\x04tag7\x18\x07 \x01(\t\x12\x11\n\tfromScene\x18\x08 \x01(\t\x12\x0c\n\x04tag9\x18\t \x01(\x05\x12\r\n\x05tag10\x18\n \x01(\x05\x1a\xae\x01\n\x0b\x61ppmsg_info\x12\x11\n\tfrom_wxid\x18\x01 \x01(\t\x12\x10\n\x08\x61pp_wxid\x18\x02 \x01(\t\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x0f\n\x07to_wxid\x18\x04 \x01(\t\x12\x0c\n\x04type\x18\x05 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x06 \x01(\t\x12\x0b\n\x03utc\x18\x07 \x01(\x05\x12\x11\n\tclient_id\x18\x08 \x01(\t\x12\r\n\x05tag10\x18\n \x01(\x05\x12\r\n\x05tag11\x18\x0b \x01(\x05\"\xa3\x01\n\x15new_send_app_msg_resp\x12\x14\n\x04tag1\x18\x01 \x01(\x0b\x32\x06.mmStr\x12\x11\n\tfrom_wxid\x18\x03 \x01(\t\x12\x0f\n\x07to_wxid\x18\x04 \x01(\t\x12\x13\n\x0bsync_key_id\x18\x05 \x01(\x05\x12\x11\n\tclient_id\x18\x06 \x01(\t\x12\x0b\n\x03utc\x18\x07 \x01(\x05\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12\r\n\x05svrid\x18\t \x01(\x03\"\x9c\x02\n\x0fverify_user_req\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12\x0f\n\x07op_code\x18\x02 \x01(\x05\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12(\n\x04user\x18\x04 \x01(\x0b\x32\x1a.verify_user_req.user_info\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\t\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\r\n\x05scene\x18\x07 \x01(\t\x12\x1b\n\x0b\x64\x65vice_info\x18\x08 \x01(\x0b\x32\x06.mmStr\x1aZ\n\tuser_info\x12\x0c\n\x04wxid\x18\x01 \x01(\t\x12\x0e\n\x06ticket\x18\x02 \x01(\t\x12\x13\n\x0b\x61nti_ticket\x18\x03 \x01(\t\x12\x0c\n\x04tag4\x18\x04 \x01(\x05\x12\x0c\n\x04tag8\x18\x08 \x01(\x05\"5\n\x10verify_user_resp\x12\x13\n\x03res\x18\x01 \x01(\x0b\x32\x06.mmRes\x12\x0c\n\x04wxid\x18\x02 \x01(\t')
+  serialized_pb=_b('\n\x08mm.proto\"!\n\x05mmStr\x12\x0b\n\x03len\x18\x01 \x01(\x05\x12\x0b\n\x03str\x18\x02 \x01(\t\"&\n\x05mmRes\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"n\n\tLoginInfo\x12\x0e\n\x06\x61\x65sKey\x18\x01 \x01(\x0c\x12\x0b\n\x03uin\x18\x02 \x01(\x05\x12\x0c\n\x04guid\x18\x03 \x01(\t\x12\x11\n\tclientVer\x18\x04 \x01(\x05\x12\x12\n\nandroidVer\x18\x05 \x01(\t\x12\x0f\n\x07unknown\x18\x06 \x01(\x05\"\x92\x01\n\x07SyncKey\x12\x0b\n\x03len\x18\x01 \x01(\x05\x12\x1f\n\x06msgkey\x18\x02 \x01(\x0b\x32\x0f.SyncKey.MsgKey\x1aY\n\x06MsgKey\x12\x0b\n\x03\x63nt\x18\x01 \x01(\x05\x12 \n\x03key\x18\x02 \x03(\x0b\x32\x13.SyncKey.MsgKey.Key\x1a \n\x03Key\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x0b\n\x03key\x18\x02 \x01(\x03\"]\n\ncommon_msg\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x1e\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x10.common_msg.Data\x1a!\n\x04\x44\x61ta\x12\x0b\n\x03len\x18\x01 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\x12\n\x04Wxid\x12\n\n\x02id\x18\x01 \x01(\t\"\x97\x02\n\x03Msg\x12\x10\n\x08serverid\x18\x01 \x01(\x03\x12\x16\n\x07\x66rom_id\x18\x02 \x01(\x0b\x32\x05.Wxid\x12\x14\n\x05to_id\x18\x03 \x01(\x0b\x32\x05.Wxid\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x1c\n\x03raw\x18\x05 \x01(\x0b\x32\x0f.Msg.RawContent\x12\x0e\n\x06status\x18\x06 \x01(\x05\x12\x0c\n\x04tag7\x18\x07 \x01(\x05\x12\x0c\n\x04tag8\x18\x08 \x01(\x0c\x12\x12\n\ncreateTime\x18\t \x01(\x05\x12\x12\n\nanticlient\x18\n \x01(\t\x12\x12\n\nxmlContent\x18\x0b \x01(\t\x12\r\n\x05svrId\x18\x0c \x01(\x03\x12\x0e\n\x06msgKey\x18\r \x01(\x05\x1a\x1d\n\nRawContent\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\"\xef\n\n\x0c\x63ontact_info\x12\x13\n\x04wxid\x18\x01 \x01(\x0b\x32\x05.Wxid\x12(\n\x08nickname\x18\x02 \x01(\x0b\x32\x16.contact_info.NickName\x12\'\n\x07shortPy\x18\x03 \x01(\x0b\x32\x16.contact_info.PY_SHORT\x12&\n\x07quanpin\x18\x04 \x01(\x0b\x32\x15.contact_info.QuanPin\x12\x0b\n\x03sex\x18\x05 \x01(\x05\x12\x0c\n\x04tag6\x18\x06 \x01(\t\x12\x0c\n\x04tag7\x18\x07 \x01(\x05\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12\x0c\n\x04tag9\x18\t \x01(\x05\x12)\n\x0bremark_name\x18\n \x01(\x0b\x32\x14.contact_info.BeiZhu\x12\x31\n\x0creal_shortPy\x18\x0b \x01(\x0b\x32\x1b.contact_info.REAL_PY_SHORT\x12\x30\n\x0creal_quanpin\x18\x0c \x01(\x0b\x32\x1a.contact_info.REAL_QuanPin\x12\r\n\x05tag13\x18\r \x01(\x05\x12\r\n\x05tag14\x18\x0e \x01(\x05\x12\r\n\x05tag16\x18\x10 \x01(\t\x12\x11\n\tbChatRoom\x18\x11 \x01(\x05\x12\r\n\x05tag18\x18\x12 \x01(\x05\x12\r\n\x05sheng\x18\x13 \x01(\t\x12\x0b\n\x03shi\x18\x14 \x01(\t\x12\x10\n\x08qianming\x18\x15 \x01(\t\x12\r\n\x05tag22\x18\x16 \x01(\x05\x12\r\n\x05tag23\x18\x17 \x01(\x05\x12\x1a\n\x12register_body_type\x18\x18 \x01(\x05\x12\x15\n\rregister_body\x18\x19 \x01(\t\x12\r\n\x05tag26\x18\x1a \x01(\x05\x12\x0b\n\x03src\x18\x1b \x01(\x05\x12\x13\n\x0blastMsgTime\x18\x1d \x01(\t\x12\r\n\x05\x61lias\x18\x1e \x01(\t\x12\x19\n\x11\x63hatroomOwnerWxid\x18\x1f \x01(\t\x12\r\n\x05tag33\x18! \x01(\x05\x12\r\n\x05tag34\x18\" \x01(\x05\x12\r\n\x05tag35\x18# \x01(\x05\x12\r\n\x05tag37\x18% \x01(\x0c\x12\x0f\n\x07\x63ountry\x18& \x01(\t\x12\x12\n\navatar_big\x18\' \x01(\t\x12\x14\n\x0c\x61vatar_small\x18( \x01(\t\x12\r\n\x05tag42\x18* \x01(\x0c\x12\x0f\n\x07v1_name\x18- \x01(\t\x12\r\n\x05tag50\x18\x32 \x01(\x0c\x12\x1a\n\x12\x63hatroom_serverVer\x18\x35 \x01(\x05\x12\x1b\n\x13\x63hatroom_max_member\x18\x37 \x01(\x05\x12\r\n\x05tag56\x18\x38 \x01(\x05\x12\x38\n\x11group_member_list\x18\x39 \x01(\x0b\x32\x1d.contact_info.GroupMemberList\x12\r\n\x05tag58\x18: \x01(\x05\x12\r\n\x05tag62\x18> \x01(\x0c\x12\r\n\x05tag64\x18@ \x01(\x05\x12\r\n\x05tag65\x18\x41 \x01(\x05\x12\r\n\x05tag66\x18\x42 \x01(\x05\x12\r\n\x05tag67\x18\x43 \x01(\x05\x1a\x18\n\x08NickName\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x18\n\x08PY_SHORT\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x17\n\x07QuanPin\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x16\n\x06\x42\x65iZhu\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x1d\n\rREAL_PY_SHORT\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\x1c\n\x0cREAL_QuanPin\x12\x0c\n\x04name\x18\x01 \x01(\t\x1a\xac\x01\n\x0fGroupMemberList\x12\x0b\n\x03\x63nt\x18\x01 \x01(\x05\x12\x38\n\x06member\x18\x02 \x03(\x0b\x32(.contact_info.GroupMemberList.MemberInfo\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x0c\n\x04tag4\x18\x04 \x01(\t\x1a\x36\n\nMemberInfo\x12\x0c\n\x04wxid\x18\x01 \x01(\t\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\x0c\n\x04tag8\x18\x08 \x01(\x05\"\xc6\x02\n\x18ManualAuthAccountRequest\x12-\n\x03\x61\x65s\x18\x01 \x02(\x0b\x32 .ManualAuthAccountRequest.AesKey\x12,\n\x04\x65\x63\x64h\x18\x02 \x02(\x0b\x32\x1e.ManualAuthAccountRequest.Ecdh\x12\x10\n\x08userName\x18\x03 \x02(\t\x12\x11\n\tpassword1\x18\x04 \x02(\t\x12\x11\n\tpassword2\x18\x05 \x02(\t\x1a\"\n\x06\x41\x65sKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x02(\x0c\x1aq\n\x04\x45\x63\x64h\x12\x0b\n\x03nid\x18\x01 \x02(\x05\x12\x37\n\x07\x65\x63\x64hKey\x18\x02 \x02(\x0b\x32&.ManualAuthAccountRequest.Ecdh.EcdhKey\x1a#\n\x07\x45\x63\x64hKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x02(\x0c\"\x91\x05\n\x17ManualAuthDeviceRequest\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12,\n\x04tag2\x18\x02 \x01(\x0b\x32\x1e.ManualAuthDeviceRequest._Tag2\x12\x0c\n\x04imei\x18\x03 \x01(\t\x12\x13\n\x0bsoftInfoXml\x18\x04 \x01(\t\x12\x10\n\x08unknown5\x18\x05 \x01(\x05\x12\x13\n\x0b\x63lientSeqID\x18\x06 \x01(\t\x12\x18\n\x10\x63lientSeqID_sign\x18\x07 \x01(\t\x12\x17\n\x0floginDeviceName\x18\x08 \x01(\t\x12\x15\n\rdeviceInfoXml\x18\t \x01(\t\x12\x10\n\x08language\x18\n \x01(\t\x12\x10\n\x08timeZone\x18\x0b \x01(\t\x12\x11\n\tunknown13\x18\r \x01(\x05\x12\x11\n\tunknown14\x18\x0e \x01(\x05\x12\x13\n\x0b\x64\x65viceBrand\x18\x0f \x01(\t\x12\x13\n\x0b\x64\x65viceModel\x18\x10 \x01(\t\x12\x0e\n\x06osType\x18\x11 \x01(\t\x12\x13\n\x0brealCountry\x18\x12 \x01(\t\x12\x11\n\tunknown22\x18\x16 \x01(\x05\x1a\xec\x01\n\x05_Tag2\x12\x14\n\x04tag1\x18\x01 \x01(\x0b\x32\x06.mmStr\x12\x33\n\x04tag2\x18\x02 \x01(\x0b\x32%.ManualAuthDeviceRequest._Tag2.__Tag2\x12\x14\n\x04tag3\x18\x03 \x01(\x0b\x32\x06.mmStr\x12\x14\n\x04tag4\x18\x04 \x01(\x0b\x32\x06.mmStr\x12\x14\n\x04tag5\x18\x05 \x01(\x0b\x32\x06.mmStr\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x1aH\n\x06__Tag2\x12\x0c\n\x04tag1\x18\x01 \x01(\t\x12\x0c\n\x04tag2\x18\x02 \x01(\t\x12\x0c\n\x04tag3\x18\x03 \x01(\t\x12\x14\n\x04tag4\x18\x04 \x01(\x0b\x32\x06.mmStr\"\xd3\x07\n\x12ManualAuthResponse\x12.\n\x06result\x18\x01 \x02(\x0b\x32\x1e.ManualAuthResponse.AuthResult\x12\x11\n\tunifyFlag\x18\x02 \x02(\x05\x12\x30\n\tauthParam\x18\x03 \x02(\x0b\x32\x1d.ManualAuthResponse.AuthParam\x12\x34\n\x0b\x61\x63\x63ountInfo\x18\x04 \x01(\x0b\x32\x1f.ManualAuthResponse.AccountInfo\x12\x0f\n\x07\x64nsInfo\x18\x05 \x01(\x0c\x1ai\n\nAuthResult\x12\x0c\n\x04\x63ode\x18\x01 \x02(\x05\x12\x36\n\x07\x65rr_msg\x18\x02 \x02(\x0b\x32%.ManualAuthResponse.AuthResult.ErrMsg\x1a\x15\n\x06\x45rrMsg\x12\x0b\n\x03msg\x18\x01 \x01(\t\x1a\xe5\x02\n\tAuthParam\x12\x0b\n\x03uin\x18\x01 \x02(\x05\x12\x30\n\x04\x65\x63\x64h\x18\x02 \x02(\x0b\x32\".ManualAuthResponse.AuthParam.Ecdh\x12\x39\n\x07session\x18\x03 \x02(\x0b\x32(.ManualAuthResponse.AuthParam.SessionKey\x12\x11\n\tSmsTicket\x18\x10 \x01(\x0c\x12\x18\n\x10\x62indMailLoginUrl\x18\x14 \x01(\t\x12\x12\n\nserverTime\x18\x16 \x01(\x05\x1au\n\x04\x45\x63\x64h\x12\x0b\n\x03nid\x18\x01 \x02(\x05\x12;\n\x07\x65\x63\x64hKey\x18\x02 \x01(\x0b\x32*.ManualAuthResponse.AuthParam.Ecdh.EcdhKey\x1a#\n\x07\x45\x63\x64hKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x01(\x0c\x1a&\n\nSessionKey\x12\x0b\n\x03len\x18\x01 \x02(\x05\x12\x0b\n\x03key\x18\x02 \x01(\x0c\x1a\xad\x02\n\x0b\x41\x63\x63ountInfo\x12\x0c\n\x04wxId\x18\x01 \x01(\t\x12\x10\n\x08nickName\x18\x02 \x01(\t\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x10\n\x08\x62indMail\x18\x04 \x01(\t\x12\x12\n\nbindMobile\x18\x05 \x01(\t\x12\r\n\x05\x41lias\x18\x06 \x01(\t\x12\x0c\n\x04tag7\x18\x07 \x01(\t\x12\x0e\n\x06status\x18\x08 \x01(\x05\x12\x12\n\npluginFlag\x18\t \x01(\x05\x12\x14\n\x0cregisterType\x18\n \x01(\x05\x12\r\n\x05tag11\x18\x0b \x01(\t\x12\x12\n\nsafeDevice\x18\x0c \x01(\x05\x12\x1a\n\x12officialNamePinyin\x18\r \x01(\t\x12\x16\n\x0eofficialNameZh\x18\x0e \x01(\t\x12\r\n\x05tag15\x18\x0f \x01(\t\x12\r\n\x05\x66sUrl\x18\x10 \x01(\t\"w\n\x0eNewInitRequest\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12\x0c\n\x04wxid\x18\x02 \x01(\t\x12\x14\n\x0csync_key_cur\x18\x03 \x01(\x0c\x12\x14\n\x0csync_key_max\x18\x04 \x01(\x0c\x12\x10\n\x08language\x18\x05 \x01(\t\"\x8e\x01\n\x0fNewInitResponse\x12\x0c\n\x04tag1\x18\x01 \x01(\t\x12\x14\n\x0csync_key_cur\x18\x02 \x01(\x0c\x12\x14\n\x0csync_key_max\x18\x03 \x01(\x0c\x12\x15\n\rcontinue_flag\x18\x04 \x01(\x05\x12\x0f\n\x07\x63ntList\x18\x06 \x01(\x05\x12\x19\n\x04tag7\x18\x07 \x03(\x0b\x32\x0b.common_msg\"\xb4\x01\n\x0cnew_sync_req\x12)\n\x04\x66lag\x18\x01 \x01(\x0b\x32\x1b.new_sync_req.continue_flag\x12\x10\n\x08selector\x18\x02 \x01(\x05\x12\x10\n\x08sync_Key\x18\x03 \x01(\x0c\x12\r\n\x05scene\x18\x04 \x01(\x05\x12\x0e\n\x06\x64\x65vice\x18\x05 \x01(\t\x12\x17\n\x0fsync_msg_digest\x18\x06 \x01(\x05\x1a\x1d\n\rcontinue_flag\x12\x0c\n\x04\x66lag\x18\x01 \x01(\x05\"\xc2\x01\n\rnew_sync_resp\x12\x0c\n\x04tag1\x18\x01 \x01(\x05\x12#\n\x03msg\x18\x02 \x01(\x0b\x32\x16.new_sync_resp.new_msg\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x10\n\x08sync_key\x18\x04 \x01(\x0c\x12\x0c\n\x04tag5\x18\x05 \x01(\x05\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\x0b\n\x03utc\x18\x07 \x01(\x05\x1a\x35\n\x07new_msg\x12\x0f\n\x07\x63ntList\x18\x01 \x01(\x05\x12\x19\n\x04tag2\x18\x02 \x03(\x0b\x32\x0b.common_msg\"\xa6\x01\n\x10new_send_msg_req\x12\x0b\n\x03\x63nt\x18\x01 \x01(\x05\x12\'\n\x03msg\x18\x02 \x01(\x0b\x32\x1a.new_send_msg_req.msg_info\x1a\\\n\x08msg_info\x12\x11\n\x02to\x18\x01 \x01(\x0b\x32\x05.Wxid\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x12\x0c\n\x04type\x18\x03 \x01(\x05\x12\x0b\n\x03utc\x18\x04 \x01(\x05\x12\x11\n\tclient_id\x18\x05 \x01(\x05\"\xa6\x01\n\x11new_send_msg_resp\x12\x14\n\x04tag1\x18\x01 \x01(\x0b\x32\x06.mmStr\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x05\x12&\n\x03res\x18\x03 \x01(\x0b\x32\x19.new_send_msg_resp.result\x1a\x46\n\x06result\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x11\n\x02to\x18\x02 \x01(\x0b\x32\x05.Wxid\x12\x0c\n\x04type\x18\x07 \x01(\x05\x12\r\n\x05svrid\x18\x08 \x01(\x03\"\xed\x02\n\x14new_send_app_msg_req\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12/\n\x04info\x18\x02 \x01(\x0b\x32!.new_send_app_msg_req.appmsg_info\x12\x0c\n\x04tag4\x18\x04 \x01(\x05\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\x0c\n\x04tag7\x18\x07 \x01(\t\x12\x11\n\tfromScene\x18\x08 \x01(\t\x12\x0c\n\x04tag9\x18\t \x01(\x05\x12\r\n\x05tag10\x18\n \x01(\x05\x1a\xae\x01\n\x0b\x61ppmsg_info\x12\x11\n\tfrom_wxid\x18\x01 \x01(\t\x12\x10\n\x08\x61pp_wxid\x18\x02 \x01(\t\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x0f\n\x07to_wxid\x18\x04 \x01(\t\x12\x0c\n\x04type\x18\x05 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x06 \x01(\t\x12\x0b\n\x03utc\x18\x07 \x01(\x05\x12\x11\n\tclient_id\x18\x08 \x01(\t\x12\r\n\x05tag10\x18\n \x01(\x05\x12\r\n\x05tag11\x18\x0b \x01(\x05\"\xa3\x01\n\x15new_send_app_msg_resp\x12\x14\n\x04tag1\x18\x01 \x01(\x0b\x32\x06.mmStr\x12\x11\n\tfrom_wxid\x18\x03 \x01(\t\x12\x0f\n\x07to_wxid\x18\x04 \x01(\t\x12\x13\n\x0bsync_key_id\x18\x05 \x01(\x05\x12\x11\n\tclient_id\x18\x06 \x01(\t\x12\x0b\n\x03utc\x18\x07 \x01(\x05\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12\r\n\x05svrid\x18\t \x01(\x03\"\x9c\x02\n\x0fverify_user_req\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12\x0f\n\x07op_code\x18\x02 \x01(\x05\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12(\n\x04user\x18\x04 \x01(\x0b\x32\x1a.verify_user_req.user_info\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\t\x12\x0c\n\x04tag6\x18\x06 \x01(\x05\x12\r\n\x05scene\x18\x07 \x01(\t\x12\x1b\n\x0b\x64\x65vice_info\x18\x08 \x01(\x0b\x32\x06.mmStr\x1aZ\n\tuser_info\x12\x0c\n\x04wxid\x18\x01 \x01(\t\x12\x0e\n\x06ticket\x18\x02 \x01(\t\x12\x13\n\x0b\x61nti_ticket\x18\x03 \x01(\t\x12\x0c\n\x04tag4\x18\x04 \x01(\x05\x12\x0c\n\x04tag8\x18\x08 \x01(\x05\"5\n\x10verify_user_resp\x12\x13\n\x03res\x18\x01 \x01(\x0b\x32\x06.mmRes\x12\x0c\n\x04wxid\x18\x02 \x01(\t\"^\n\x10receive_wxhb_req\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12\x0b\n\x03\x63md\x18\x02 \x01(\x05\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x14\n\x04info\x18\x04 \x01(\x0b\x32\x06.mmStr\"\xaf\x01\n\x11receive_wxhb_resp\x12%\n\x04tag1\x18\x01 \x01(\x0b\x32\x17.receive_wxhb_resp.TAG1\x12\x17\n\x07hb_info\x18\x02 \x01(\x0b\x32\x06.mmStr\x12\x0b\n\x03\x63md\x18\x05 \x01(\x05\x12\x10\n\x08ret_code\x18\x06 \x01(\x05\x12\x0f\n\x07ret_msg\x18\x07 \x01(\t\x1a*\n\x04TAG1\x12\x0c\n\x04tag1\x18\x01 \x01(\x05\x1a\x14\n\x04TAG1\x12\x0c\n\x04tag1\x18\x01 \x01(\t\"[\n\ropen_wxhb_req\x12\x19\n\x05login\x18\x01 \x01(\x0b\x32\n.LoginInfo\x12\x0b\n\x03\x63md\x18\x02 \x01(\x05\x12\x0c\n\x04tag3\x18\x03 \x01(\x05\x12\x14\n\x04info\x18\x04 \x01(\x0b\x32\x06.mmStr\"\xa5\x01\n\x0eopen_wxhb_resp\x12\"\n\x04tag1\x18\x01 \x01(\x0b\x32\x14.open_wxhb_resp.TAG1\x12\x13\n\x03res\x18\x02 \x01(\x0b\x32\x06.mmStr\x12\x0b\n\x03\x63md\x18\x05 \x01(\x05\x12\x10\n\x08ret_code\x18\x06 \x01(\x05\x12\x0f\n\x07ret_msg\x18\x07 \x01(\t\x1a*\n\x04TAG1\x12\x0c\n\x04tag1\x18\x01 \x01(\x05\x1a\x14\n\x04TAG1\x12\x0c\n\x04tag1\x18\x01 \x01(\t')
 )
 
 
@@ -2996,6 +2996,348 @@ _VERIFY_USER_RESP = _descriptor.Descriptor(
   serialized_end=5968,
 )
 
+
+_RECEIVE_WXHB_REQ = _descriptor.Descriptor(
+  name='receive_wxhb_req',
+  full_name='receive_wxhb_req',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='login', full_name='receive_wxhb_req.login', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cmd', full_name='receive_wxhb_req.cmd', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tag3', full_name='receive_wxhb_req.tag3', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='info', full_name='receive_wxhb_req.info', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5970,
+  serialized_end=6064,
+)
+
+
+_RECEIVE_WXHB_RESP_TAG1_TAG1 = _descriptor.Descriptor(
+  name='TAG1',
+  full_name='receive_wxhb_resp.TAG1.TAG1',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tag1', full_name='receive_wxhb_resp.TAG1.TAG1.tag1', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6222,
+  serialized_end=6242,
+)
+
+_RECEIVE_WXHB_RESP_TAG1 = _descriptor.Descriptor(
+  name='TAG1',
+  full_name='receive_wxhb_resp.TAG1',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tag1', full_name='receive_wxhb_resp.TAG1.tag1', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_RECEIVE_WXHB_RESP_TAG1_TAG1, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6200,
+  serialized_end=6242,
+)
+
+_RECEIVE_WXHB_RESP = _descriptor.Descriptor(
+  name='receive_wxhb_resp',
+  full_name='receive_wxhb_resp',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tag1', full_name='receive_wxhb_resp.tag1', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='hb_info', full_name='receive_wxhb_resp.hb_info', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cmd', full_name='receive_wxhb_resp.cmd', index=2,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ret_code', full_name='receive_wxhb_resp.ret_code', index=3,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ret_msg', full_name='receive_wxhb_resp.ret_msg', index=4,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_RECEIVE_WXHB_RESP_TAG1, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6067,
+  serialized_end=6242,
+)
+
+
+_OPEN_WXHB_REQ = _descriptor.Descriptor(
+  name='open_wxhb_req',
+  full_name='open_wxhb_req',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='login', full_name='open_wxhb_req.login', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cmd', full_name='open_wxhb_req.cmd', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tag3', full_name='open_wxhb_req.tag3', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='info', full_name='open_wxhb_req.info', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6244,
+  serialized_end=6335,
+)
+
+
+_OPEN_WXHB_RESP_TAG1_TAG1 = _descriptor.Descriptor(
+  name='TAG1',
+  full_name='open_wxhb_resp.TAG1.TAG1',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tag1', full_name='open_wxhb_resp.TAG1.TAG1.tag1', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6222,
+  serialized_end=6242,
+)
+
+_OPEN_WXHB_RESP_TAG1 = _descriptor.Descriptor(
+  name='TAG1',
+  full_name='open_wxhb_resp.TAG1',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tag1', full_name='open_wxhb_resp.TAG1.tag1', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_OPEN_WXHB_RESP_TAG1_TAG1, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6200,
+  serialized_end=6242,
+)
+
+_OPEN_WXHB_RESP = _descriptor.Descriptor(
+  name='open_wxhb_resp',
+  full_name='open_wxhb_resp',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tag1', full_name='open_wxhb_resp.tag1', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='res', full_name='open_wxhb_resp.res', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cmd', full_name='open_wxhb_resp.cmd', index=2,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ret_code', full_name='open_wxhb_resp.ret_code', index=3,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ret_msg', full_name='open_wxhb_resp.ret_msg', index=4,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_OPEN_WXHB_RESP_TAG1, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6338,
+  serialized_end=6503,
+)
+
 _SYNCKEY_MSGKEY_KEY.containing_type = _SYNCKEY_MSGKEY
 _SYNCKEY_MSGKEY.fields_by_name['key'].message_type = _SYNCKEY_MSGKEY_KEY
 _SYNCKEY_MSGKEY.containing_type = _SYNCKEY
@@ -3076,6 +3418,18 @@ _VERIFY_USER_REQ.fields_by_name['login'].message_type = _LOGININFO
 _VERIFY_USER_REQ.fields_by_name['user'].message_type = _VERIFY_USER_REQ_USER_INFO
 _VERIFY_USER_REQ.fields_by_name['device_info'].message_type = _MMSTR
 _VERIFY_USER_RESP.fields_by_name['res'].message_type = _MMRES
+_RECEIVE_WXHB_REQ.fields_by_name['login'].message_type = _LOGININFO
+_RECEIVE_WXHB_REQ.fields_by_name['info'].message_type = _MMSTR
+_RECEIVE_WXHB_RESP_TAG1_TAG1.containing_type = _RECEIVE_WXHB_RESP_TAG1
+_RECEIVE_WXHB_RESP_TAG1.containing_type = _RECEIVE_WXHB_RESP
+_RECEIVE_WXHB_RESP.fields_by_name['tag1'].message_type = _RECEIVE_WXHB_RESP_TAG1
+_RECEIVE_WXHB_RESP.fields_by_name['hb_info'].message_type = _MMSTR
+_OPEN_WXHB_REQ.fields_by_name['login'].message_type = _LOGININFO
+_OPEN_WXHB_REQ.fields_by_name['info'].message_type = _MMSTR
+_OPEN_WXHB_RESP_TAG1_TAG1.containing_type = _OPEN_WXHB_RESP_TAG1
+_OPEN_WXHB_RESP_TAG1.containing_type = _OPEN_WXHB_RESP
+_OPEN_WXHB_RESP.fields_by_name['tag1'].message_type = _OPEN_WXHB_RESP_TAG1
+_OPEN_WXHB_RESP.fields_by_name['res'].message_type = _MMSTR
 DESCRIPTOR.message_types_by_name['mmStr'] = _MMSTR
 DESCRIPTOR.message_types_by_name['mmRes'] = _MMRES
 DESCRIPTOR.message_types_by_name['LoginInfo'] = _LOGININFO
@@ -3097,6 +3451,10 @@ DESCRIPTOR.message_types_by_name['new_send_app_msg_req'] = _NEW_SEND_APP_MSG_REQ
 DESCRIPTOR.message_types_by_name['new_send_app_msg_resp'] = _NEW_SEND_APP_MSG_RESP
 DESCRIPTOR.message_types_by_name['verify_user_req'] = _VERIFY_USER_REQ
 DESCRIPTOR.message_types_by_name['verify_user_resp'] = _VERIFY_USER_RESP
+DESCRIPTOR.message_types_by_name['receive_wxhb_req'] = _RECEIVE_WXHB_REQ
+DESCRIPTOR.message_types_by_name['receive_wxhb_resp'] = _RECEIVE_WXHB_RESP
+DESCRIPTOR.message_types_by_name['open_wxhb_req'] = _OPEN_WXHB_REQ
+DESCRIPTOR.message_types_by_name['open_wxhb_resp'] = _OPEN_WXHB_RESP
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 mmStr = _reflection.GeneratedProtocolMessageType('mmStr', (_message.Message,), dict(
@@ -3485,6 +3843,66 @@ verify_user_resp = _reflection.GeneratedProtocolMessageType('verify_user_resp', 
   # @@protoc_insertion_point(class_scope:verify_user_resp)
   ))
 _sym_db.RegisterMessage(verify_user_resp)
+
+receive_wxhb_req = _reflection.GeneratedProtocolMessageType('receive_wxhb_req', (_message.Message,), dict(
+  DESCRIPTOR = _RECEIVE_WXHB_REQ,
+  __module__ = 'mm_pb2'
+  # @@protoc_insertion_point(class_scope:receive_wxhb_req)
+  ))
+_sym_db.RegisterMessage(receive_wxhb_req)
+
+receive_wxhb_resp = _reflection.GeneratedProtocolMessageType('receive_wxhb_resp', (_message.Message,), dict(
+
+  TAG1 = _reflection.GeneratedProtocolMessageType('TAG1', (_message.Message,), dict(
+
+    TAG1 = _reflection.GeneratedProtocolMessageType('TAG1', (_message.Message,), dict(
+      DESCRIPTOR = _RECEIVE_WXHB_RESP_TAG1_TAG1,
+      __module__ = 'mm_pb2'
+      # @@protoc_insertion_point(class_scope:receive_wxhb_resp.TAG1.TAG1)
+      ))
+    ,
+    DESCRIPTOR = _RECEIVE_WXHB_RESP_TAG1,
+    __module__ = 'mm_pb2'
+    # @@protoc_insertion_point(class_scope:receive_wxhb_resp.TAG1)
+    ))
+  ,
+  DESCRIPTOR = _RECEIVE_WXHB_RESP,
+  __module__ = 'mm_pb2'
+  # @@protoc_insertion_point(class_scope:receive_wxhb_resp)
+  ))
+_sym_db.RegisterMessage(receive_wxhb_resp)
+_sym_db.RegisterMessage(receive_wxhb_resp.TAG1)
+_sym_db.RegisterMessage(receive_wxhb_resp.TAG1.TAG1)
+
+open_wxhb_req = _reflection.GeneratedProtocolMessageType('open_wxhb_req', (_message.Message,), dict(
+  DESCRIPTOR = _OPEN_WXHB_REQ,
+  __module__ = 'mm_pb2'
+  # @@protoc_insertion_point(class_scope:open_wxhb_req)
+  ))
+_sym_db.RegisterMessage(open_wxhb_req)
+
+open_wxhb_resp = _reflection.GeneratedProtocolMessageType('open_wxhb_resp', (_message.Message,), dict(
+
+  TAG1 = _reflection.GeneratedProtocolMessageType('TAG1', (_message.Message,), dict(
+
+    TAG1 = _reflection.GeneratedProtocolMessageType('TAG1', (_message.Message,), dict(
+      DESCRIPTOR = _OPEN_WXHB_RESP_TAG1_TAG1,
+      __module__ = 'mm_pb2'
+      # @@protoc_insertion_point(class_scope:open_wxhb_resp.TAG1.TAG1)
+      ))
+    ,
+    DESCRIPTOR = _OPEN_WXHB_RESP_TAG1,
+    __module__ = 'mm_pb2'
+    # @@protoc_insertion_point(class_scope:open_wxhb_resp.TAG1)
+    ))
+  ,
+  DESCRIPTOR = _OPEN_WXHB_RESP,
+  __module__ = 'mm_pb2'
+  # @@protoc_insertion_point(class_scope:open_wxhb_resp)
+  ))
+_sym_db.RegisterMessage(open_wxhb_resp)
+_sym_db.RegisterMessage(open_wxhb_resp.TAG1)
+_sym_db.RegisterMessage(open_wxhb_resp.TAG1.TAG1)
 
 
 # @@protoc_insertion_point(module_scope)
