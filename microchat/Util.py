@@ -199,7 +199,7 @@ def DoEcdh(serverEcdhPubKey):
     if platform.architecture()[0] == '64bit':
         lib = loader("./microchat/dll/ecdh_x64.dll")
     else:
-        lib = loader("../microchat/dll/ecdh_x32.dll")
+        lib = loader("./microchat/dll/ecdh_x32.dll") #修改在32环境下找不到ecdh_x32.dll文件 by luckyfish 2018-04-02
     # 申请内存
     shareKey = bytes(bytearray(2048))                                                       # 存放密钥协商结果
     lenShareKey = c_int(0)                                                                  # 存放共享密钥长度
