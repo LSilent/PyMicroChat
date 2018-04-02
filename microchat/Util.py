@@ -17,12 +17,12 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5
 from google.protobuf.internal import decoder, encoder
 from ctypes import *
-
+from .plugin.logger_wrapper import logger
 
 ################################全局变量################################
 # 日志级别(INFO级别不输出debug信息)
-__LOG_LEVEL__ = logging.INFO
-logger = logging.getLogger("mmTest")
+# __LOG_LEVEL__ = logging.INFO
+# logger = logging.getLogger("mmTest")
 
 # cgi http头
 headers = {
@@ -67,18 +67,18 @@ conn = None
 ########################################################################
 
 # 日志初始化
-def initLog():
-    logger.setLevel(__LOG_LEVEL__)
-    hterm = logging.StreamHandler()
-    hterm.setLevel(__LOG_LEVEL__)
-    hfile = logging.FileHandler(time.strftime(
-        "%Y-%m-%d", time.localtime()) + ".log")
-    hfile.setLevel(__LOG_LEVEL__)
-    formatter = logging.Formatter('[%(asctime)s][%(levelname)s]: %(message)s')
-    hterm.setFormatter(formatter)
-    hfile.setFormatter(formatter)
-    logger.addHandler(hterm)
-    logger.addHandler(hfile)
+# def initLog():
+#     logger.setLevel(__LOG_LEVEL__)
+#     hterm = logging.StreamHandler()
+#     hterm.setLevel(__LOG_LEVEL__)
+#     hfile = logging.FileHandler(time.strftime(
+#         "%Y-%m-%d", time.localtime()) + ".log")
+#     hfile.setLevel(__LOG_LEVEL__)
+#     formatter = logging.Formatter('[%(asctime)s][%(levelname)s]: %(message)s')
+#     hterm.setFormatter(formatter)
+#     hfile.setFormatter(formatter)
+#     logger.addHandler(hterm)
+#     logger.addHandler(hfile)
 
 # md5
 def GetMd5(src):

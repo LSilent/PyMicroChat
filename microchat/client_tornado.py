@@ -7,6 +7,7 @@ from .dns_ip import get_ips
 from . import interface
 from . import Util
 from . import business
+from .plugin.logger_wrapper import logger
 
 #recv缓冲区大小
 BUFFSIZE = 4096
@@ -34,7 +35,8 @@ UNPACK_OK = 1  #解包成功
 
 
 def recv_data_handler(recv_data):
-    print("tornado recv: ", recv_data)
+    # logger.debug("tornado recv: ", recv_data)
+    pass
 
 
 #心跳时间间隔（秒）
@@ -67,7 +69,7 @@ class ChatClient(object):
         self.stream.read_bytes(16, self.__recv_header)
 
     def send_heart_beat(self):
-        print(
+        logger.debug(
             'last_heartbeat_time={},Util.get_utc() - last_heartbeat_time = {}'.
             format(self.last_heartbeat_time,
                    Util.get_utc() - self.last_heartbeat_time))
@@ -92,7 +94,7 @@ class ChatClient(object):
     def __recv_header(self, data):
         self.cnt += 1
         self.recv_data = data
-        print('recive from the server', data)
+        logger.debug('recive from the server', data)
         (len_ack, _, _) = struct.unpack('>I4xII', data)
         if self.recv_cb:
             self.recv_cb(data)
@@ -101,7 +103,7 @@ class ChatClient(object):
 
     @gen.coroutine
     def __recv_payload(self, data):
-        print('recive from the server', data)
+        logger.debug('recive from the server', data)
         if self.recv_cb:
             self.recv_cb(data)
         self.recv_data += data
@@ -151,7 +153,7 @@ class ChatClient(object):
             #解析包头
             header = buf[:16]
             (len_ack, cmd_id_ack, seq_id_ack) = struct.unpack('>I4xII', header)
-            print('封包长度:{},cmd_id:{},seq_id:0x{:x}'.format(len_ack, cmd_id_ack,
+            logger.debug('封包长度:{},cmd_id:{},seq_id:0x{:x}'.format(len_ack, cmd_id_ack,
                                                         seq_id_ack))
             #包长合法性验证
             if len(buf) < len_ack:  #包体不完整
@@ -161,7 +163,13 @@ class ChatClient(object):
                     #尝试获取sync key
                     sync_key = Util.get_sync_key()
                     if sync_key:  #sync key存在
-                        interface.new_sync()  #使用newsync同步消息
+                        try:
+                            interface.new_sync()  #使用newsync同步消息
+                        except RuntimeError as e:
+                            logger.error(e)
+                            self.ioloop.stop()
+                            return (UNPACK_FAIL, b'')
+                        
                         self.stream.write(
                             self.pack(CMDID_REPORT_KV_REQ,
                                     business.sync_done_req2buf()))  #通知服务器消息已接收
@@ -174,7 +182,10 @@ class ChatClient(object):
                     elif CMDID_MANUALAUTH_REQ == cmd_id:  #登录响应
                         if business.login_buf2Resp(buf[16:len_ack],
                                                 self.login_aes_key):
-                            raise RuntimeError('登录失败!')  #登录失败
+                            # raise RuntimeError('登录失败!')  #登录失败
+                            logger.error('请再次登录!')
+                            self.ioloop.stop()
+                            return (UNPACK_FAIL, b'')
                 return (UNPACK_OK, buf[len_ack:])
 
         return (UNPACK_OK,b'')

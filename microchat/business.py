@@ -11,7 +11,7 @@ from . import define
 from . import mm_pb2
 from .plugin import plugin
 from . import Util
-from .Util import logger
+from .plugin.logger_wrapper import logger
 from google.protobuf.internal import decoder, encoder
 
 # 组包(压缩加密+封包),参数:protobuf序列化后数据,cgi类型,是否使用压缩算法

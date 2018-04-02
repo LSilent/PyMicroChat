@@ -3,7 +3,7 @@ from .. import define
 from .. import interface
 from .. import mm_pb2
 from .. import Util
-from ..Util import logger
+from .logger_wrapper import logger
 from bs4 import BeautifulSoup
 
 #自动通过好友请求黑名单列表,在表中的wxid将不自动同意

@@ -5,7 +5,7 @@ from .. import mm_pb2
 from .. import Util
 from . import verify_friend
 from . import handle_appmsg
-from ..Util import logger
+from .logger_wrapper import logger
 
 # 测试命令
 state = lambda i: '已开启' if i else '已关闭'

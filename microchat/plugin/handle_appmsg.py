@@ -5,7 +5,7 @@ from .. import mm_pb2
 from .. import Util
 from .  import plugin
 from bs4 import BeautifulSoup
-from ..Util import logger
+from .logger_wrapper import logger
 
 
 # appmsg 消息处理

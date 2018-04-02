@@ -12,7 +12,7 @@ from . import dns_ip
 from . import business
 from . import Util
 from . import mm_pb2
-from .Util import logger
+from .plugin.logger_wrapper import logger
 from google.protobuf.internal import decoder, encoder
 
 
@@ -119,7 +119,7 @@ def receive_and_open_wxhb(channelId,msgType,nativeUrl,sendId,inWay = 1,ver='v1.0
 
 # 初始化python模块
 def InitAll():
-    Util.initLog()
+    # Util.initLog()
     Util.ip = GetDns()
     # 初始化ECC key
     if not Util.GenEcdhKey():
