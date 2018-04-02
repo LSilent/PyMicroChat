@@ -5,6 +5,7 @@ from .. import mm_pb2
 from .. import Util
 from . import verify_friend
 from . import handle_appmsg
+from . import tuling_robot
 from .logger_wrapper import logger
 
 # 测试命令
@@ -16,43 +17,11 @@ TEST_STATE    = [1,1,1,1,1]
 # 插件黑名单(不处理该wxid的消息)
 plugin_blacklist = ['weixin', ]
 
-# 图灵机器人接口
-TULING_HOST = 'openapi.tuling123.com'
-TULING_API = 'http://openapi.tuling123.com/openapi/api/v2'
-# 图灵机器人key
-TULING_KEY = '460a124248234351b2095b57b88cffd2'
-
-# 图灵机器人
-def tuling_robot(msg):
-    # 使用图灵接口获取自动回复信息
-    data = {
-        'reqType': 0,
-        'perception':
-        {
-            "inputText":
-            {
-                "text": msg.raw.content
-            },
-        },
-        'userInfo':
-        {
-            "apiKey": TULING_KEY,
-            "userId": Util.GetMd5(msg.from_id.id)
-        }
-    }
-    try:
-        robot_ret = eval(Util.post(TULING_HOST, TULING_API,json.dumps(data)).decode())
-        logger.debug('tuling api 返回:{}'.format(robot_ret))
-        # 自动回消息
-        interface.new_send_msg(msg.from_id.id, robot_ret['results'][0]['values']['text'].encode(encoding="utf-8"))
-    except:
-        logger.info('tuling api 调用异常!')
-    return
-
 # 测试接口
 def test(msg):
     global TEST_STATE
-    if '测试' == msg.raw.content:  # help
+    # 来自群聊的消息不处理
+    if '测试' == msg.raw.content:                                                                                                   # help
         send_text = '当前支持的测试指令:\n'
         for i in range(len(TEST_KEY_WORD)):
             send_text += '[{}]{}({})\n'.format(i, TEST_KEY_WORD[i],state(TEST_STATE[i]))
@@ -91,7 +60,7 @@ def dispatch(msg):
         if test(msg):
             if TEST_STATE[2]:
                 # 机器人回复消息
-                tuling_robot(msg)
+                tuling_robot.tuling_robot(msg)
     # 好友请求消息
     elif 37 == msg.type:
         if TEST_STATE[3]:
