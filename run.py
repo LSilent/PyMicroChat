@@ -3,7 +3,7 @@ from microchat.plugin.logger_wrapper import logger, ColorDefine
 from microchat import logo_bingo
 
 #配置logger
-logger.config("microchat", out=0)
+logger.config("microchat", out=2)
 logo_bingo()
 
 def main():

@@ -25,8 +25,7 @@ def pack(src, cgi_type, use_compress=0):
         (body, len_proto_compressed) = Util.compress_and_aes(src, Util.sessionKey)
     else:
         body = Util.aes(src, Util.sessionKey)
-    logger.debug("cgi:{},protobuf数据:{}\n加密后数据:{}".format(
-        cgi_type, Util.b2hex(src), Util.b2hex(body)))
+    logger.debug("cgi:{},protobuf数据:{}\n加密后数据:{}".format(cgi_type, Util.b2hex(src), Util.b2hex(body)))
     # 封包包头
     header = bytearray(0)
     header += b'\xbf'                                                                               # 标志位(可忽略该字节)
@@ -149,10 +148,8 @@ def login_req2buf(name, password):
 
     # 封包包体
     subheader = b''
-    # accountData protobuf长度
-    subheader += struct.pack(">I", len(accountRequest.SerializeToString()))
-    # deviceData protobuf长度
-    subheader += struct.pack(">I", len(deviceRequest.SerializeToString()))
+    subheader += struct.pack(">I", len(accountRequest.SerializeToString()))                         # accountData protobuf长度
+    subheader += struct.pack(">I", len(deviceRequest.SerializeToString()))                          # deviceData protobuf长度
     subheader += struct.pack(">I", len(reqAccount))                                                 # accountData RSA加密后长度
     # 包体由头信息、账号密码加密后数据、硬件设备信息加密后数据3部分组成
     body = subheader + reqAccount + reqDevice[0]
@@ -187,15 +184,14 @@ def login_buf2Resp(buf, login_aes_key):
 
     # 登录异常处理
     if -301 == loginRes.result.code:                                                                # DNS解析失败,请尝试更换idc
-        logger.info('登陆结果:\ncode:{}\n请尝试更换DNS重新登陆!'.format(
-            loginRes.result.code))                    
+        logger.error('登陆结果:\ncode:{}\n请尝试更换DNS重新登陆!'.format(loginRes.result.code))                    
     elif -106 == loginRes.result.code:                                                              # 需要在IE浏览器中滑动操作解除环境异常/扫码、短信、好友授权(滑动解除异常后需要重新登录一次)
-        logger.info('登陆结果:\ncode:{}\nError msg:{}\n'.format(loginRes.result.code, loginRes.result.err_msg.msg[loginRes.result.err_msg.msg.find('<Content><![CDATA[')+len('<Content><![CDATA['):loginRes.result.err_msg.msg.find(']]></Content>')]))
+        logger.error('登陆结果:\ncode:{}\nError msg:{}\n'.format(loginRes.result.code, loginRes.result.err_msg.msg[loginRes.result.err_msg.msg.find('<Content><![CDATA[')+len('<Content><![CDATA['):loginRes.result.err_msg.msg.find(']]></Content>')]))
         # 打开IE,完成授权
-        logger.info('请在浏览器授权后重新登陆!')
+        logger.error('请在浏览器授权后重新登陆!')
         Util.OpenIE(loginRes.result.err_msg.msg[loginRes.result.err_msg.msg.find('<Url><![CDATA[')+len('<Url><![CDATA['):loginRes.result.err_msg.msg.find(']]></Url>')])
     elif loginRes.result.code:                                                                      # 其他登录错误
-        logger.info('登陆结果:\ncode:{}\nError msg:{}\n'.format(loginRes.result.code, loginRes.result.err_msg.msg[loginRes.result.err_msg.msg.find(
+        logger.error('登陆结果:\ncode:{}\nError msg:{}\n'.format(loginRes.result.code, loginRes.result.err_msg.msg[loginRes.result.err_msg.msg.find(
             '<Content><![CDATA[')+len('<Content><![CDATA['):loginRes.result.err_msg.msg.find(']]></Content>')]))
     else:                                                                                           # 登陆成功
         # 密钥协商
@@ -203,7 +199,7 @@ def login_buf2Resp(buf, login_aes_key):
         # 保存uin/wxid
         Util.uin = loginRes.authParam.uin
         Util.wxid = loginRes.accountInfo.wxId
-        logger.info('登陆成功!\nsession_key:{}\nuin:{}\nwxid:{}\nnickName:{}\nalias:{}'.format(Util.sessionKey, Util.uin, Util.wxid, loginRes.accountInfo.nickName, loginRes.accountInfo.Alias))
+        logger.info('登陆成功!\nsession_key:{}\nuin:{}\nwxid:{}\nnickName:{}\nalias:{}'.format(Util.sessionKey, Util.uin, Util.wxid, loginRes.accountInfo.nickName, loginRes.accountInfo.Alias),13)
         # 初始化db
         Util.init_db()
 

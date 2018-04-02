@@ -180,12 +180,16 @@ class ChatClient(object):
                     if CMDID_NOOP_REQ == cmd_id:  #心跳响应
                         pass
                     elif CMDID_MANUALAUTH_REQ == cmd_id:  #登录响应
-                        if business.login_buf2Resp(buf[16:len_ack],
-                                                self.login_aes_key):
+                        code = business.login_buf2Resp(buf[16:len_ack],self.login_aes_key)
+                        if -106 == code:
+                            #logger.error('请再次登录!')
+                             # 授权后,尝试自动重新登陆
+                            logger.info('正在重新登陆........................',14)
+                            self.longin()
+                        elif code:
                             # raise RuntimeError('登录失败!')  #登录失败
-                            logger.error('请再次登录!')
                             self.ioloop.stop()
-                            return (UNPACK_FAIL, b'')
+                            return (UNPACK_FAIL, b'')                           
                 return (UNPACK_OK, buf[len_ack:])
 
         return (UNPACK_OK,b'')

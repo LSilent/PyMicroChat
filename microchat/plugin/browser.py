@@ -30,7 +30,7 @@ class MainWindow(QMainWindow):
             if self.url == self.browser.url().toString():                                       # 授权页面url未改变                                        
                 pass                                                                            # 继续等待用户操作
             else:
-                if self.url.find('w_security_center_website') > 0:                              # 滑块验证通过,关闭浏览器
+                if self.browser.url().toString().find('t=login_verify_entrances/w_tcaptcha_ret') > 0: # 滑块验证通过,关闭浏览器
                     self.start = False
                     self.close()
                     return

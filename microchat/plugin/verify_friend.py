@@ -28,7 +28,7 @@ def auto_verify_friend(msg):
             return
         #通过好友请求   
         if interface.verify_user(3,fromusername,encryptusername,ticket,'',''):
-            logger.info('已通过[{}]的好友请求!'.format(fromusername))
+            logger.info('已通过[{}]的好友请求!'.format(fromusername),9)
         else:
             logger.info('自动通过[{}]的好友请求失败!'.format(fromusername))
     except:
