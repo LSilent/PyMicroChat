@@ -1,10 +1,4 @@
 from microchat import client_tornado
-from microchat.plugin.logger_wrapper import logger, ColorDefine
-from microchat import logo_bingo
-
-#配置logger
-logger.config("microchat", out=2)
-logo_bingo()
 
 def main():
     usrname = "13212345678"

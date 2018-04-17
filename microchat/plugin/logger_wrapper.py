@@ -13,6 +13,7 @@ STD_INPUT_HANDLE = -10
 STD_OUTPUT_HANDLE = -11
 STD_ERROR_HANDLE = -12
 
+
 class ColorDefine(enum.IntEnum):
 
     # 字体颜色定义 ,关键在于颜色编码，由2位十六进制组成，分别取0~f，前一位指的是背景色，后一位指的是字体色
@@ -95,7 +96,6 @@ class LoggerWrapper(object):
         self.out = 0
         if os.path.exists(os.getcwd() + '/log') is False:
             os.mkdir(os.getcwd() + '/log')
-        # self.config("microchat", out=2)
 
     def config(self, appName, logFileName=None, level=logging.INFO, out=2, fore_color = ColorDefine.FOREGROUND_GREEN):
         """
@@ -113,11 +113,12 @@ class LoggerWrapper(object):
         self.log_level = level
         self.out = out
         self.fore_color = fore_color
-        self.logger = self.getLogger()
+        self.logger_file, self.logger_console = self.getLogger()
 
     def getLogger(self):
         # 获取logging实例
-        logger = logging.getLogger(self.appName)
+        logger_file = logging.getLogger(self.appName)
+        logger_console = logging.getLogger('streamer')
         # 指定输出的格式
         formatter = logging.Formatter(
             '%(name)s %(asctime)s %(levelname)8s: %(message)s')
@@ -131,94 +132,150 @@ class LoggerWrapper(object):
         console_handler.setFormatter(formatter)
 
         # # 指定日志的最低输出级别
-        logger.setLevel(self.log_level)  # 20
-
+        logger_file.setLevel(self.log_level)         # 20 INFO
+        logger_console.setLevel(self.log_level)  # 20
         # 为logger添加具体的日志处理器输出端
         if self.out == 1:
-            logger.addHandler(file_handler)
+            logger_file.addHandler(file_handler)
         elif self.out == 0:
-            logger.addHandler(console_handler)
+            logger_console.addHandler(console_handler)
         else:
-            logger.addHandler(file_handler)
-            #logger.addHandler(console_handler)
+            logger_file.addHandler(file_handler)
+            logger_console.addHandler(console_handler)
+        
+        logger_file.propagate = False
+        logger_console.propagate = False
 
-        return logger
+        return logger_file, logger_console
 
     def setLevel(self, level):
-        self.log_level = self.logger.setLevel(level)
+        if self.out == 1:
+            self.log_level = self.logger_file.setLevel(level)
+        elif self.out == 0:
+            self.log_level = self.logger_console.setLevel(level)
+        else:
+            self.log_level = self.logger_file.setLevel(level)
+            self.log_level = self.logger_console.setLevel(level)
 
     def debug(self, msg, color=None, *args, **kwargs):
-        if self.out == 1:
-            self.logger.debug(msg, *args, **kwargs)
+        try:
+            msg1 = msg.encode('gbk', 'ignore').decode('gbk', 'ignore')
+        except:
+            msg1 = ''
+
+        if color is None:
+            set_cmd_text_color(ColorDefine.FOREGROUND_WHITE)
         else:
-            if color is None:
-                set_cmd_text_color(ColorDefine.FOREGROUND_WHITE)
-            else:
-                set_cmd_text_color(color)
-            self.logger.debug(msg, *args, **kwargs)
-            # reset_color()
-            set_cmd_text_color(self.fore_color)
+            set_cmd_text_color(color)
+
+        if self.out == 1:
+            self.logger_file.debug(msg, *args, **kwargs)
+        elif self.out == 0:
+            self.logger_console.debug(msg1, *args, **kwargs)
+        else:
+            self.logger_file.debug(msg, *args, **kwargs)
+            self.logger_console.debug(msg1, *args, **kwargs)
+        set_cmd_text_color(self.fore_color)
 
     def info(self, msg, color=None, *args, **kwargs):
-        if self.out == 1:
-            self.logger.info(msg, *args, **kwargs)
+        try:
+            msg1 = msg.encode('gbk', 'ignore').decode('gbk', 'ignore')
+        except:
+            msg1 = ''
+
+        if color is None:
+            set_cmd_text_color(self.fore_color)
         else:
-            if color is None:
-                self.logger.info(msg, *args, **kwargs)
-            else:
-                set_cmd_text_color(color)
-                self.logger.info(msg, *args, **kwargs)
-                # reset_color()
-                set_cmd_text_color(self.fore_color)
+            set_cmd_text_color(color)
+            
+        if self.out == 1:
+            self.logger_file.info(msg, *args, **kwargs)
+        elif self.out == 0:
+            self.logger_console.info(msg1, *args, **kwargs)
+        else:
+            self.logger_file.info(msg, *args, **kwargs)
+            self.logger_console.info(msg1, *args, **kwargs)
+        set_cmd_text_color(self.fore_color)
 
     def warning(self, msg, color=None, *args, **kwargs):
-        if self.out == 1:
-            self.logger.warning(msg, *args, **kwargs)
+        try:
+            msg1 = msg.encode('gbk', 'ignore').decode('gbk', 'ignore')
+        except:
+            msg1 = ''
+
+        if color is None:
+            set_cmd_text_color(ColorDefine.FOREGROUND_YELLOW)
         else:
-            if color is None:
-                set_cmd_text_color(ColorDefine.FOREGROUND_YELLOW)
-            else:
-                set_cmd_text_color(color)
-            self.logger.warning(msg, *args, **kwargs)
-            # reset_color()
-            set_cmd_text_color(self.fore_color)
+            set_cmd_text_color(color)
+
+        if self.out == 1:
+            self.logger_file.warning(msg, *args, **kwargs)
+        elif self.out == 0:
+            self.logger_console.warning(msg1, *args, **kwargs)
+        else:
+            self.logger_file.warning(msg, *args, **kwargs)
+            self.logger_console.warning(msg1, *args, **kwargs)
+        set_cmd_text_color(self.fore_color)
 
     def warn(self, msg, color=None, *args, **kwargs):
-        if self.out == 1:
-            self.logger.warn(msg, *args, **kwargs)
+        try:
+            msg1 = msg.encode('gbk', 'ignore').decode('gbk', 'ignore')
+        except:
+            msg1 = ''
+
+        if color is None:
+            set_cmd_text_color(ColorDefine.FOREGROUND_DARKYELLOW)
         else:
-            if color is None:
-                set_cmd_text_color(ColorDefine.FOREGROUND_DARKYELLOW)
-            else:
-                set_cmd_text_color(color)
-            self.logger.warn(msg, *args, **kwargs)
-            # reset_color()
-            set_cmd_text_color(self.fore_color)
+            set_cmd_text_color(color)
+
+        if self.out == 1:
+            self.logger_file.warn(msg, *args, **kwargs)
+        elif self.out == 0:
+            self.logger_console.warn(msg1, *args, **kwargs)
+        else:
+            self.logger_file.warn(msg, *args, **kwargs)
+            self.logger_console.warn(msg1, *args, **kwargs)
+        set_cmd_text_color(self.fore_color)
 
     def error(self, msg, color=None, *args, **kwargs):
-        if self.out == 1:
-            self.logger.error(msg, *args, **kwargs)
+        try:
+            msg1 = msg.encode('gbk', 'ignore').decode('gbk', 'ignore')
+        except:
+            msg1 = ''
+
+        if color is None:
+            set_cmd_text_color(ColorDefine.FOREGROUND_RED)
         else:
-            if color is None:
-                set_cmd_text_color(ColorDefine.FOREGROUND_RED)
-            else:
-                set_cmd_text_color(color)
-            self.logger.error(msg, *args, **kwargs)
-            # reset_color()
-            set_cmd_text_color(self.fore_color)
+            set_cmd_text_color(color)
+
+        if self.out == 1:
+            self.logger_file.error(msg, *args, **kwargs)
+        elif self.out == 0:
+            self.logger_console.error(msg1, *args, **kwargs)
+        else:
+            self.logger_file.error(msg, *args, **kwargs)
+            self.logger_console.error(msg1, *args, **kwargs)
+        set_cmd_text_color(self.fore_color)
 
     def critical(self, msg, color=None, *args, **kwargs):
-        if self.out == 1:
-            self.logger.error(msg, *args, **kwargs)
-        else:
-            if color is None:
-                set_cmd_text_color(ColorDefine.FOREGROUND_DARKPINK)
-            else:
-                set_cmd_text_color(color)
-            self.logger.critical(msg, *args, **kwargs)
-            # reset_color()
-            set_cmd_text_color(self.fore_color)
+        try:
+            msg1 = msg.encode('gbk', 'ignore').decode('gbk', 'ignore')
+        except:
+            msg1 = ''
 
+        if color is None:
+            set_cmd_text_color(ColorDefine.FOREGROUND_DARKPINK)
+        else:
+            set_cmd_text_color(color)
+
+        if self.out == 1:
+            self.logger_file.critical(msg, *args, **kwargs)
+        elif self.out == 0:
+            self.logger_console.critical(msg1, *args, **kwargs)
+        else:
+            self.logger_file.critical(msg, *args, **kwargs)
+            self.logger_console.critical(msg1, *args, **kwargs)
+        set_cmd_text_color(self.fore_color)
 
 # 定义一个logger
 logger = LoggerWrapper()

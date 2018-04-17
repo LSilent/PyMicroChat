@@ -1,10 +1,11 @@
 __CLIENT_VERSION__                          = 637927472
-__GUID__                                    = "A31d1d52a153928"
-__CLIENT_SEQID__                            = __GUID__ + "_1520395200010"
-__CLIENT_SEQID_SIGN__                       = "e89b245e12c398afbf39eb65f9978e19"
-__IMEI__                                    = "865310173290678"
-__ANDROID_ID__                              = "eabc1f251716a49f"
-__ANDROID_VER__                             = "android-26"
+GUID                                        = "Aff0aef642a31fc2"
+__GUID__                                    = GUID[:15]
+__CLIENT_SEQID__                            = GUID + "_1522827110765"
+__CLIENT_SEQID_SIGN__                       = "e89b158e4bcf988ebd09eb83f5378e87"
+__IMEI__                                    = "865166024671219"
+__ANDROID_ID__                              = "d3151233cfbb4fd4"
+__ANDROID_VER__                             = "android-22"
 __MANUFACTURER__                            = "iPhone"
 __MODELNAME__                               = "X"
 __MOBILE_WIFI_MAC_ADDRESS__                 = "01:61:19:58:78:d3"

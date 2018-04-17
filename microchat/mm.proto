@@ -73,7 +73,7 @@ message Msg
 	optional int32 tag7 			= 7;
 	optional bytes tag8 			= 8;
 	optional int32 createTime 		= 9;							//消息发送时间
-	optional string anticlient 		= 10;
+	optional string ex_info 		= 10;							//消息附加内容(群是否屏蔽,群人数,群at功能)
 	optional string xmlContent 		= 11;							//推送内容(xml格式)
 	optional int64 svrId 			= 12;							//每条消息的唯一id
 	optional int32 msgKey 			= 13;							//sync key中的id
@@ -101,7 +101,7 @@ message contact_info
 	optional int32  sex 		= 5;						//性别：0=>未知,1=>男,2=>女
 	optional string tag6    	= 6;
 	optional int32  tag7  		= 7;
-	optional int32  type 		= 8;						//好友状态:11=>拉黑 
+	optional int32  type 		= 8;						//好友状态:  
 	optional int32  tag9 		= 9;
 	message BeiZhu
 	{
@@ -162,7 +162,9 @@ message contact_info
 		message MemberInfo
 		{
 			optional string wxid = 1;
+			optional string nick_name = 2;						//昵称(非群昵称)
 			optional int32  tag6 = 6;
+			optional string inviteer_wxid = 7;					//邀请入群wxid
 			optional int32  tag8 = 8;
 		}
 		repeated MemberInfo member = 2;
@@ -226,7 +228,12 @@ message ManualAuthDeviceRequest
 			optional mmStr  tag4 		= 4;
 		}
 		optional __Tag2 tag2 = 2;
-		optional mmStr 	tag3 = 3;
+		message TAG3
+		{
+			optional string tag1 		= 1;
+			optional string tag2 		= 2;
+		}
+		optional TAG3 	tag3 = 3;
 		optional mmStr 	tag4 = 4;
 		optional mmStr 	tag5 = 5;
 		optional int32 	tag6 = 6;
@@ -313,7 +320,39 @@ message ManualAuthResponse
 	}
 	optional AccountInfo accountInfo = 4;                   //登录成功后返回账号信息
 	
-	optional bytes dnsInfo          = 5;					//dns信息
+	message dns_info
+	{
+		message redirect_info
+		{
+			optional int32 cnt				= 1;				//host cnt
+			message real_host_info
+			{
+				optional string host  		= 1;				//host
+				optional string redirect  	= 2;				//redirect_host
+			}
+			repeated real_host_info real_host = 2;					
+		}
+		optional redirect_info redirect    			= 1;		//域名重定向信息
+		message ip_info
+		{
+			optional int32 longlink_ip_cnt	= 1;				//长链接ip池数量				
+			optional int32 shortlink_ip_cnt	= 2;				//短链接ip池数量
+			message longlink_ip_info
+			{
+				optional string ip  	= 3;					//ip
+				optional string host  	= 4;					//host
+			}
+			repeated longlink_ip_info longlink = 3;				//长链接ip池
+			message shortlink_ip_info
+			{
+				optional string ip  	= 3;					//ip
+				optional string host  	= 4;					//host
+			}
+			repeated shortlink_ip_info shortlink = 4;			//短链接ip池
+		}
+		optional ip_info ip							= 3;		//长短链接ip
+	}
+	optional dns_info dns					= 5;				//dns信息
 }
 
 //新设备第一次登录初始化请求
@@ -380,6 +419,7 @@ message new_send_msg_req
 		optional int32 type 		= 3;							//消息类型: 文字消息=>1,名片=>42，
 		optional int32 utc 			= 4;
 		optional int32 client_id 	= 5;							//不同消息的utc与client_id必须至少有1个不相同
+		optional string at_list		= 6;							//群聊at功能
 	}
 	optional msg_info msg 				= 2;						//这里可以是repeated,允许一次发送多条消息
 }
@@ -412,7 +452,7 @@ message new_send_app_msg_req
 		optional int32 type				= 5;						//app_msg type == 5
 		optional string content			= 6;						//appmsg具体信息
 		optional int32 utc				= 7;
-		optional string client_id		= 8;						//to_wxid+randomin+T+utc
+		optional string client_id		= 8;						//to_wxid+randomint+T+utc
 		optional int32 tag10 			= 10;						//unknown just set 3
 		optional int32 tag11			= 11;						//unknown just set 0
 	}
@@ -519,3 +559,330 @@ message open_wxhb_resp
 	optional int32	   ret_code				= 6;					//错误码 416:需要实名认证
 	optional string    ret_msg				= 7;					//错误信息
 }
+
+//获取红包详细信息请求
+message qry_detail_wxhb_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32     cmd                  = 2;
+	optional int32	   tag3					= 3;
+	optional mmStr	   info					= 4;					//红包信息:需要nativeUrl和sendid
+}
+
+//获取红包详细信息响应
+message qry_detail_wxhb_resp
+{
+	message TAG1
+	{
+		optional int32 tag1 = 1;
+		message TAG1
+		{
+			optional string tag1 = 1;
+		}
+	}
+	optional TAG1 tag1 						= 1;					//没啥用
+	optional mmStr 	   res					= 2;					//红包领取信息
+	optional int32     cmd                  = 5;
+	optional int32	   ret_code				= 6;					//错误码 416:需要实名认证
+	optional string    ret_msg				= 7;					//错误信息
+}
+
+//发送emoji请求
+message send_emoji_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32     tag2                 = 2;
+	message emoji_info
+	{
+		optional string    animation_id = 1;						//emoji加密文件名;发送游戏emoji时该参数无效
+		optional int32     tag2      	= 2;
+		optional int32     tag3      	= 3;
+		message TAG4
+		{
+			optional int32 tag1 = 1;
+		}
+		optional TAG4      tag4      	= 4;
+		optional int32 	   tag5      	= 5;
+		optional string    to_wxid   	= 6;
+		optional string    game_ext  	= 7;						//游戏参数:<gameext type="2" content="8" ></gameext>
+		optional string    tag8      	= 8;
+		optional string    utc       	= 9;						//ms
+		optional int32    tag11      	= 11;
+	}
+	optional emoji_info emoji				= 3;					//发送表情详细信息
+	optional int32     tag4                 = 4;
+}
+
+//发送emoji响应
+message send_emoji_resp
+{
+	message result
+	{
+		optional int32     code      	= 1;						//错误码;返回0表示发送成功
+		optional int32     tag2      	= 2;						//小游戏随机种子?
+		optional int32     tag3      	= 3;						//小游戏随机种子?
+		optional string    file_name    = 4;
+		optional int32     svrid     	= 5;						//服务器唯一id
+		optional int32     tag6      	= 6;						
+	}
+	optional result res						= 3;					//发送结果
+}
+
+//收款请求
+message transfer_operation_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32     tag2                 = 2;
+	optional int32     tag3                 = 3;
+	optional mmStr	   info					= 4;					//转账信息:需要op_code, invalid_time, trans_id, 转账人wxid和transfer_id, 签名使用TDES加密算法(可不签)
+}
+
+//收款结果
+message transfer_operation_resp
+{
+	optional mmStr 	   res					= 2;					//收款结果详细信息
+	optional int32	   ret_code				= 6;					//错误码 
+	optional string    ret_msg				= 7;					//错误信息
+}
+
+//查询转账记录请求
+message transfer_query_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32     tag2                 = 2;
+	optional int32     tag3                 = 3;
+	optional mmStr	   info					= 4;					//转账信息:需要invalid_time, trans_id和transfer_id, 签名使用TDES加密算法(可不签)
+}
+
+//查询转账记录结果
+message transfer_query_resp
+{
+	optional mmStr 	   res					= 2;					//收款结果详细信息
+	optional int32	   ret_code				= 6;					//错误码 
+	optional string    ret_msg				= 7;					//错误信息
+}
+
+//获取好友详细信息请求
+message get_contact_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32     tag2					= 2;
+	optional Wxid      wxid					= 3;					//要查询的 好友/群聊 wxid
+	optional int32     tag4					= 4;
+	optional int32     tag6					= 6;
+	message TAG7
+	{
+		optional string tag1  = 1;
+	}
+	optional TAG7       tag7				= 7;
+	optional int32      tag8				= 8;
+}
+
+//获取好友详细信息响应
+message get_contact_resp
+{
+	optional contact_info   info			= 3;					//好友详细信息
+	message ticket_info
+	{
+		optional string wxid  	= 1;								//查询好友的wxid
+		optional string ticket  = 2;								//v2_ticket
+	}
+	optional ticket_info ticket             = 5;					//对方删除/拉黑我 返回v2_name;正常好友该字段为空
+}
+
+//建群聊请求
+message create_chatroom_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	message TAG2
+	{
+		optional string tag1  = 1;
+	}
+	optional TAG2       tag2				= 2;
+	optional int32      member_cnt    		= 3;					//群成员数量
+	message member_info
+	{
+		optional Wxid    wxid		= 1;
+	}
+	repeated member_info member				= 4;					//群成员信息
+	optional int32		tag5				= 5;
+}
+
+//建群聊响应
+message create_chatroom_resp
+{
+	message result
+	{
+		optional int32 code    		= 1;							//错误码
+		message err_msg
+		{
+			optional string msg  = 1;								//错误信息
+		}
+		optional err_msg msg		= 2;
+	}
+	optional result res						= 1;					//建群结果
+	optional int32	member_cnt 				= 5;					//群成员数量
+	message member_info
+	{
+		optional Wxid    wxid			  = 1;						//wxid
+		message nick_name_info
+		{
+			optional string name  = 1;								//昵称
+		}
+		optional nick_name_info nick_name = 3;
+		optional string qianming  		  = 15;						//签名
+	}
+	repeated member_info member				= 6;
+	optional Wxid chatroom_wxid  			= 7;					//新建群聊wxid
+	message chatroom_avatar
+	{
+		optional int32	len  = 1;									//群头像raw data大小
+		optional bytes  data = 2; 									//群头像 jpg格式 raw data
+	}
+	optional chatroom_avatar  avatar		= 8;					//群头像				
+}
+
+//面对面建群请求
+message mm_facing_create_chatroom_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32	op_code					= 2;					//op_code=0：建群等人(未生成群wxid,只返回群成员信息) op_code=1:进群(返回群wxid)
+	optional string chatroom_pwd			= 3;					//面对面建群密码(4位;不能是1234)
+	optional float lon						= 4;					//面对面建群坐标经度
+	optional float lat						= 5;					//面对面建群坐标纬度
+	optional int32 tag6						= 6;
+	optional int32 tag9						= 9;
+	optional string tag10					= 10;
+}
+
+//面对面建群响应
+message mm_facing_create_chatroom_resp
+{
+	message result
+	{
+		optional int32 code    		= 1;							//错误码
+		message err_msg
+		{
+			optional string msg  = 1;								//错误信息
+		}
+		optional err_msg msg		= 2;
+	}
+	optional result res						= 1;					//面对面建群结果
+	optional int32	member_cnt				= 3;					//群成员数量(op_code=0阶段)
+	message member_info
+	{
+		optional string msg  		= 1;							//wxid
+		optional string nick_name   = 3;							//nick_name
+	}
+	repeated member_info member             = 4;					//群成员信息(op_code=0阶段)
+	optional string wxid					= 5;					//面对面群id(op_code=1阶段)
+}
+
+//群聊拉人请求
+message add_chatroom_member_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional int32      member_cnt    		= 2;					//本次邀请加入群聊的好友数量
+	message member_info
+	{
+		optional Wxid    wxid		= 1;
+	}
+	repeated member_info member				= 3;					//本次邀请加入群聊的好友信息
+	message chatroom_info
+	{
+		optional string  wxid = 1;
+	}
+	optional chatroom_info chatroom_wxid    = 4;					//群聊wxid
+	optional int32	tag5					= 5;
+}
+
+//群聊拉人响应
+message add_chatroom_member_resp
+{
+	message result
+	{
+		optional int32 code    		= 1;							//错误码
+		message err_msg
+		{
+			optional string msg  = 1;								//错误信息
+		}
+		optional err_msg msg		= 2;
+	}
+	optional result res						= 1;					//群聊拉人结果
+}
+
+//oplog:cmd_id=48 设置群昵称
+message op_set_group_nick_name
+{
+	optional string tag1  = 1;
+	optional string tag2  = 2;
+	optional bytes tag3  = 3;
+}
+
+//操作请求
+message oplog_req
+{
+	message TAG1
+	{
+		optional int32 tag1    				= 1;					//cnt?
+		message CMD
+		{
+			optional int32 cmd_id = 1;								//操作类型
+			message OPTION
+			{
+				optional int32 len = 1;
+				optional bytes data	= 2;							//不同cmd_id使用不同结构体填充该字段
+			}
+			optional OPTION option	= 2;
+		}
+		optional CMD cmd					= 2;
+	}
+	optional TAG1	tag1                        = 1;
+}
+
+//操作响应
+message oplog_resp
+{
+	message result
+	{
+		optional bytes code = 2;									//错误码  varint
+		optional string msg = 3;									//错误信息
+	}
+	optional result res                        = 2;					//结果
+}
+
+//消息撤回请求
+message revoke_msg_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional string  client_id				= 2;					//客户端发送的消息id
+	optional int64	new_client_id			= 3;					//新的客户端消息id
+	optional int32	utc						= 4;
+	optional int32	tag5					= 5;
+	optional string from_wxid				= 6;
+	optional string to_wxid					= 7;
+	optional int32  index_of_request		= 8;
+	optional int64  svrid					= 9;					//撤回消息的svrid
+}
+
+//消息撤回响应
+message revoke_msg_resp
+{
+	optional mmRes res						= 1;					//错误码
+	optional string response_sys_wording    = 3;					//消息撤回提示(已撤回或撤回失败原因)
+}
+
+//发布群公告请求
+message set_chatroom_announcement_req
+{
+	optional LoginInfo login 				= 1;					//登录信息
+	optional string chatroom_wxid			= 2;					//群聊wxid
+	optional string content					= 3;					//群公告内容
+}
+
+//发布群公告响应
+message set_chatroom_announcement_resp
+{
+	optional mmRes res						= 1;					//发布群公告结果
+}
+
